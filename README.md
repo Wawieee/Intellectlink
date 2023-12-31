@@ -1,29 +1,42 @@
-# README #
+IntellectLink(like ResearchGate)
+IntellectLink is a cutting-edge platform tailored for MSU-IIT communities, connecting students, researchers, and faculty in a seamless ecosystem of knowledge sharing. 
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Key Features:
+- Access a vast repository of university-generated research studies.
+- Seamlessly connect with fellow scholars and experts within your institution.
+- Stay updated with the latest academic trends and breakthroughs.
+- Effortlessly browse and filter studies by keywords, colleges, subject, author, and more.  
 
-### What is this repository for? ###
+THE POSSIBLE USERS:
+• IIT students
+• Faculty/Professors 
+• and Alumni.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+THE USER CAN:
+Log in and sign up.
+The user can sign up using their institute email.
+The user can log in using the same email.
+Create , Edit and Add work profile
+Create - full name, student or faculty, address, college, contact information
+Edit profile - full name,address,college,contact information
+Add background profile - mura siya biography
+Upload Research work
+ Search
+Search by keywords
+Search by colleges
+Search by subject
+Search by author
+Search by topics
 
-### How do I get set up? ###
+ Give feedback
+give comments about the app and suggestions 
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+THE ADMINISTRATOR CAN:
+Log in and Sign up
+The admin will be given one account per college
+The admin can log in by the given account
+Create, Edit profile
+Create - college,foundation, vision mission, faculty, departments
+Edit profile - faculty,vision mision
+Maintenance
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
