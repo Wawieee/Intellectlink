@@ -16,8 +16,8 @@ THE POSSIBLE USERS:
 
 THE USER CAN:
 • Log in and sign up.
- - The user can sign up using their institute email.
- - The user can log in using the same email.
+- The user can sign up using their institute email.
+- The user can log in using the same email.
 • Create , Edit and Add work profile
  - Create - full name, student or faculty, address, college, contact information
  - Edit profile - full name,address,college,contact information
