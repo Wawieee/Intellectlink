@@ -1,0 +1,52 @@
+{% extends "master_layout/nav.html" %}
+
+{% block content %}
+    <div class="notification-container">
+        <h2 style="text-align: center; color: #000000;">Requests Status</h2>
+        {% if notifications %}
+            {% for notification in notifications %}
+                <div class="notification" style="background-color: {% if notification.status == 'accepted' %}#008C45{% elif notification.status == 'rejected' %}#B71C1C{% else %}#4c4c4c{% endif %};
+                                                 border-radius: 20px; 
+                                                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                                                 padding: 15px;
+                                                 margin: 10px 0;">
+                    <h3 style="font-weight: bold; text-transform: capitalize;">{{ notification.status }}</h3>
+                    <p><strong>Full-text request: </strong></p>
+                        <p>{{ notification.paper_title }}</p>
+                    <p><strong>Owner: </strong>{{ notification.receiver_name }}</p>
+                    <p>{{ notification.updated_at }}</p>
+                    {% if notification.status == 'accepted' %}
+                        <div style="text-align: center;">
+                            <a href="{{ url_for('user_profile_blueprint.download_paper', person_id=notification.receiver_person_id, paper_id=notification.paper_id) }}" style="background-color: #ffffff; color: #008C45; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Download file</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">No notifications.</p>
+        {% endif %}
+    </div>
+    <style>
+        .notification-container {
+            margin: 20px;
+            color: #F5F5F5;
+        }
+        .notification {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+
+        .btn {
+            padding: 8px 12px;
+            margin-top: 10px;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #28a745; /* Change button color to green */
+            border: none;
+        }
+    </style>
+{% endblock %}

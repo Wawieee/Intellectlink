@@ -1,0 +1,27 @@
+/* Add this to your existing CSS or replace the existing :root section */
+:root {
+  /* fonts */
+  --font-roboto: 'Roboto', sans-serif; /* Use single quotes for font names with spaces */
+  --font-inherit: inherit;
+
+  /* font sizes */
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 24px; /* Set the global font size to 24px */
+  --font-size-3xs: 10px;
+  --font-size-lgi: 19px;
+
+  /* Paddings */
+  --padding-3xs: 1px;
+
+
+}
+
+/* Update font family and size for body */
+body {
+  font-family: var(--font-roboto);
+  font-size: var(--font-size-lg);
+  margin: 0;
+  line-height: normal;
+}
+

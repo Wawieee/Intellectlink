@@ -1,0 +1,234 @@
+    <!-- templates/user_profile/edit_profile.html -->
+    {% extends "master_layout/nav.html" %}
+
+    {% block content %}
+      <!-- jQuery -->
+      <script>
+        function openModal() {
+          document.getElementById("interestModal").style.display = "block";
+        }
+    
+        function closeModal() {
+          document.getElementById("interestModal").style.display = "none";
+        }
+    
+        function saveChanges() {
+          // Prepare the form data
+          var formData = new FormData(document.forms[0]);
+    
+                  $.ajax({
+            type: "POST",
+            url: "{{ url_for('user_profile_blueprint.edit_profile', person_id=person_id) }}",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+              // Handle the success response if needed
+              console.log("Success:", data);
+
+              // Optionally, update the UI with the new interests
+              // For example, you can append the new interests to a container on the page
+              $("#interestsContainer").html(data.newInterests);
+
+              // Close the modal
+              closeModal();
+
+              // Display a success flash message
+              showFlashMessage('success', 'Changes saved successfully!');
+            },
+            error: function (error) {
+              // Handle the error response in detail
+              console.log("Error:", error);
+
+              // Check if the error response contains specific information
+              if (error.responseJSON && error.responseJSON.message) {
+                showFlashMessage('error', error.responseJSON.message);
+              } else {
+                // If no specific message is available, show a generic error message
+                showFlashMessage('error', 'Failed to save changes. Leave the textbox empty .');
+              }
+            }
+          });
+        }
+
+        function showFlashMessage(type, message) {
+            var alertTypeClass = type === 'success' ? 'alert-success' : 'alert-danger';
+
+            // Create a Bootstrap alert div with appropriate classes
+            var alertDiv = $('<div class="alert ' + alertTypeClass + ' alert-dismissible fade show position-absolute start-50 translate-middle-x" role="alert">' +
+              message +
+              '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+              '</div>');
+
+            // Style the alert div to be at the top of the modal
+            alertDiv.css({
+              'top': '20px',
+              'left': '50%',
+              'transform': 'translateX(-50%)',
+              'z-index': '1050' // Ensure the alert is on top of the modal backdrop
+            });
+
+            // Append the alert to the modal
+            $('#interestModal').append(alertDiv);
+
+            // Automatically close the alert after 3 seconds (adjust as needed)
+            setTimeout(function () {
+              alertDiv.alert('close');
+            }, 5000);
+          }
+
+        function cancelEdit() {
+          // Redirect to the user profile page when cancel is clicked
+          window.location.href = "{{ url_for('user_profile_blueprint.user_profile', person_id=person_id) }}";
+        }
+
+        function addNewSubject() {
+  // Get the value from the input field
+  var newSubject = document.getElementById('newSubject').value.trim();
+
+  // Get the CSRF token from the form
+  var csrfToken = document.querySelector('input[name="csrf_token"]').value;
+
+  // Check if the input is not empty
+  if (newSubject !== '') {
+    // Make an AJAX request to the server to add the new subject
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('user_profile_blueprint.add_subject') }}",
+      data: {
+        subjectname: newSubject,
+        csrf_token: csrfToken  // Include the CSRF token in the request data
+      },
+      success: function (response) {
+        // Handle the success response if needed
+        console.log("Success:", response);
+
+        // Add the new subject to the UI
+        var checkboxContainer = document.createElement('div');
+        checkboxContainer.className = 'checkbox-container';
+        checkboxContainer.innerHTML = `
+          <input type="checkbox" name="interests[]" value="${response.subject_id}" checked>
+          <label class="checkbox-label">${newSubject}</label>
+        `;
+        document.querySelector('.checkbox-label').appendChild(checkboxContainer);
+
+        // Clear the input field
+        document.getElementById('newSubject').value = '';
+      },
+      error: function (error) {
+        // Handle the error response if needed
+        console.log("Error:", error);
+
+        // Display an error flash message if the subject already exists
+        if (error.responseJSON && error.responseJSON.error === 'Subject already exists') {
+          showFlashMessage('error', 'Subject already exists');
+        }
+      }
+    });
+  }
+}
+
+// Event listener for the Enter key press
+document.addEventListener('keypress', function (event) {
+  // Check if the Enter key is pressed and the focus is on the "Add New Subject" input field
+  if (event.key === 'Enter' && document.activeElement.id === 'newSubject') {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Call the addNewSubject function to add the new subject
+    addNewSubject();
+  }
+});
+
+             
+      </script>
+       <div id="flashMessages"></div>
+
+       <div class="user-profile-container">
+        <div class="user-details">
+          <div class="user-detail-box">
+            <form method="POST" action="{{ url_for('user_profile_blueprint.edit_profile', person_id=person_id) }}" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+              <div class="profile-picture">
+                {% if 'photo' in request.files %}
+                    {% if request.files['photo'].filename %}
+                        <!-- Display the uploaded image if a new image is uploaded -->
+                        <img src="{{ user_details.person_details.photo_url }}" alt="Profile Picture">
+                    {% else %}
+                        <!-- Display the existing image or the placeholder image if no existing image -->
+                        <img src="{{ user_details.person_details.photo_url or url_for('static', filename='user_profile/assets/placeholder.png') }}" alt="Profile Picture">
+                    {% endif %}
+                {% else %}
+                    <!-- Display the existing image or the placeholder image if no existing image -->
+                    <img src="{{ user_details.person_details.photo_url or url_for('static', filename='user_profile/assets/placeholder.png') }}" alt="Profile Picture">
+                {% endif %}
+                <input type="file" name="photo" accept="image/*">
+              </div>
+              <div class="name-degree centered">
+                <label for="name" class="centered">Name:</label>
+                <input type="text" id="name" name="name" value="{{ user_details.person_details.name or '' }}" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ user_details.person_details.email or '' }}" required readonly>
+              </div>
+
+              <div class="details-below centered">
+                <div class="age-gender">
+                  <div>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" value="{{ user_details.person_details.age or '' }}" required>
+                  </div>
+                  <div>
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                      <option value="Male" {% if user_details.person_details.gender == 'Male' %}selected{% endif %}>Male</option>
+                      <option value="Female" {% if user_details.person_details.gender == 'Female' %}selected{% endif %}>Female</option>
+                      <option value="Other" {% if user_details.person_details.gender == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <label for="phone" class="centered">Phone Number</label>
+                <input type="tel" id="phone" name="phone" class="centered-input" value="{{ user_details.person_details.phone or '' }}" required>
+
+                <label for="address" class="centered">Address</label>
+                <input type="text" id="address" name="address" class="centered-input"  value="{{ user_details.person_details.address or '' }}" required>
+
+                <!-- Checkbox section for subjects -->
+            <button type="button" class="btn btn-primary" onclick="openModal()">Select Interests</button>
+            <button type="submit" class="edit-button">Save Changes</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelEdit()">Cancel</button>
+          </div>
+          <div class="custom-modal" id="interestModal">
+            <div class="modal-content">
+              <div id="flashMessages"></div>
+              <h5>Interests</h5>
+              <!-- Checkbox section for interests -->
+              <div class="add-new-subject">
+                <label for="newSubject"></label>
+                <input type="text" id="newSubject" name="newSubject" placeholder="Add New Subject">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <button type="button" onclick="addNewSubject()">Add</button>
+              </div>
+              <div class="checkbox-label">
+                {% for subject in subjects %}
+                  <div class="checkbox-container">
+                    <input type="checkbox" name="interests[]" value="{{ subject.subject_id }}" {% if subject.subject_id in user_interests %}checked{% endif %}>
+                    <label class="checkbox-label">{{ subject.subjectname }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <!-- Save Changes button triggers form submission -->
+              <button type="button" class="btn btn-primary" onclick="saveChanges()">Save Interest</button>
+            </div>
+        
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+  
+  {% endblock %}

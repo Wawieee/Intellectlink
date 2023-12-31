@@ -1,0 +1,153 @@
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>  
+    function toggleAbstract(paperId) {
+        var abstract = document.getElementById('abstract_' + paperId);
+        var fullAbstract = document.getElementById('full_abstract_' + paperId);
+
+        if (abstract.style.display === 'none') {
+            abstract.style.display = 'block';
+            fullAbstract.style.display = 'none';
+        } else {
+            abstract.style.display = 'none';
+            fullAbstract.style.display = 'block';
+        }
+    }</script>
+<div class="rectangular-container">
+
+
+<div class="rectangular-container">
+    {% if paper_data %}
+        <div class="research-container">
+            <div class="top">
+                <h5><strong>{{ paper_data.title }}</strong></h5>
+            </div>
+
+            <div class="tags">
+                <span class="tag">{{ paper_data.paper_type }}</span>
+                <span class="tag privacy">{{ paper_data.privacy }}</span>
+                <span class="tag date">{{ paper_data.pub_date }}</span>
+            </div>
+            
+            <div class="authors">
+                {% if paper_data.authors_info %}
+                    <div class="author-list">
+                        {% for author_info in paper_data.authors_info.split(',') %}
+                            {% set author_parts = author_info.split('|') %}
+                            {% set photo_url = author_parts[0] %}
+                            {% set author_person_id = author_parts[2] %}
+                            {% set author_name = author_parts[1] %}
+                            
+                            <a class="author" onclick="openProfile('{{ author_person_id }}')">{{ author_name }}</a>
+                            {% if not loop.last %}
+                                <span class="author-separator">•</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <p class="reads">{{ paper_data.reads }} Reads</p>
+
+            <div class="button-container">
+                {% if paper_data.privacy == 'private' %}
+                    {% if session.get('person_id')|string in paper_data.authors_info %}
+                        <a href="{{ url_for('user_profile_blueprint.download_paper', person_id=other_person_id, paper_id=paper_data.paper_id) }}" class="download-button" download>Download</a>
+                    {% else %}
+                        <button class="request-button" onclick="openRequestModal()">Request</button>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ url_for('user_profile_blueprint.download_paper', person_id=other_person_id, paper_id=paper_data.paper_id) }}" class="download-button" download>Download</a>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <p>No data available for the specified paper.</p>
+    {% endif %}
+</div>
+
+</div> <!-- Closing tag for rectangular-container -->
+
+<div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Request Paper</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow: hidden;">
+                <form id="requestForm" method="POST" action="{{ url_for('user_profile_blueprint.send_request', other_person_id=other_person_id, paper_id=paper_data.paper_id) }}">
+                    <div class="form-group">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <label for="message">Message:</label>
+                        <textarea class="form-control" id="message" name="message" rows="3" style="resize: none;" required>I'm interested in this research - could you provide the full-text for it?
+- {{ session.get('user_name', '') }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="abstract-container">
+    <h3>Abstract</h3>
+    {% if paper_data.abstract %}
+        <p class="abstract" id="abstract_{{ paper_data.paper_id }}">
+            {{ paper_data.abstract[:1000] }}{% if paper_data.abstract|length > 200 %}... <span class="read-more" onclick="toggleAbstract({{ paper_data.paper_id }})">Read More</span>{% endif %}
+        </p>
+        <p class="full-abstract" id="full_abstract_{{ paper_data.paper_id }}" style="display: none;">
+            {{ paper_data.abstract }} <span class="see-less" onclick="toggleAbstract({{ paper_data.paper_id }})">See Less</span>
+        </p>
+    {% else %}
+        <p>No abstract available.</p>
+    {% endif %}
+</div>
+
+<div class="pdf-container">
+    {% if paper_data.pdf_file %}
+        {% if paper_data.privacy == 'public' %}
+            <iframe src="data:application/pdf;base64,{{ paper_data.pdf_file }}" frameborder="0"></iframe>
+        {% else %}
+            <div class="private-placeholder">
+                <img src="{{ url_for('static', filename='user_profile/assets/pdf.png') }}" alt="Private Paper" class="private-icon">
+                <p>This paper is private. Request access to view.</p>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>No PDF file available.</p>
+    {% endif %}
+</div>
+
+<script>
+    function openRequestModal() {
+        $('#requestModal').modal('show');
+    }
+
+    function openProfile(authorId) {
+        var currentUserId = '{{ session.get("person_id") }}';
+        var url = (currentUserId === authorId) ? '/user_profile/' + currentUserId : '/other_profile/' + authorId;
+        window.location.href = url;
+    }
+
+    function toggleAbstract(paperId) {
+        var abstract = document.getElementById('abstract_' + paperId);
+        var fullAbstract = document.getElementById('full_abstract_' + paperId);
+
+        if (abstract.style.display === 'none') {
+            abstract.style.display = 'block';
+            fullAbstract.style.display = 'none';
+        } else {
+            abstract.style.display = 'none';
+            fullAbstract.style.display = 'block';
+        }
+    }
+</script>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user_profile/styles/view_file.css') }}">
+{% endblock %}

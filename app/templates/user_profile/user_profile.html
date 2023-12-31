@@ -1,0 +1,267 @@
+<!-- templates/user_profile/user_profile.html -->
+{% extends "master_layout/nav.html" %}
+
+{% block content %}
+
+
+
+<div class="user-nav">
+    <div class="user-profile-wrapper">
+        <div class="profile option active" onclick="navigateTo('/user_profile/{{ person_id }}')">My Profile</div>
+        <div class="researches option" onclick="navigateTo('/user_researches/{{ person_id }}')">My Papers</div>
+    </div>
+</div>
+<style>
+.user-profile-wrapper .profile,
+.user-profile-wrapper .researches {
+    color: #F55761; /* Default color */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-weight: bold; /* Make the text bolder on hover */
+}
+.profile:hover, .researches:hover {
+    color: #F55761; /* Text color on hover */
+    cursor: pointer;
+    font-weight: bold; /* Make the text bolder */
+}
+
+.profile:active, .researches:active {
+    color: #981C24; /* Text color when clicked */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a shadow on click */
+}
+
+/* Active (clicked) effect for Profile */
+.profile.active {
+    color: #981C24; /* Text color for the active state */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Shadow below the text for the active state */
+}
+</style>
+
+
+<script>
+    function navigateTo(url) {
+        window.location.href = url;
+    }
+</script>
+
+<div class="user-profile-container">
+    <!-- User Details Section -->
+    <div class="user-details">
+        <div class="user-detail-box">   
+            <div class="profile-picture">
+                {% if 'photo' in request.files and request.files['photo'].filename %}
+                    <!-- Display the uploaded image if a new image is uploaded -->
+                    <img src="{{ user_details.person_details.photo_url }}" alt="Profile Picture">
+                {% else %}
+                    <!-- Display the existing image or the placeholder image if no existing image -->
+                    <img src="{{ user_details.person_details.photo_url or url_for('static', filename='user_profile/assets/placeholder.png') }}" alt="Profile Picture">
+                {% endif %}
+            </div>
+            <div class="name-degree">
+                <h2>{{ user_details.person_details.name or '---' }}</h2>
+                <p>{{ user_details.person_details.email or '---' }}</p>
+            </div> 
+            <div class="details-below">
+                <div class="age-gender">
+                    <div>
+                        <h>Age</h>
+                        <p>{{ user_details.person_details.age or '---' }}</p>
+                    </div>
+                    <div>
+                        <h>Gender</h>
+                        <p>{{ user_details.person_details.gender or '---' }}</p>
+                    </div>
+                </div>
+                <h>Phone Number</h>
+                <p>{{ user_details.person_details.phone or '---' }}</p>
+                <h>Address</h>
+                <p>{{ user_details.person_details.address or '---' }}</p>        
+                <h>Interests</h>
+                <p>{{ ', '.join(user_details.interests) or '---' }}</p>
+                <button class="edit-button" onclick="navigateTo('/edit_profile/{{ person_id }}')">Edit</button>
+            </div>
+        </div>
+    </div>
+    <!-- User Data Section -->
+    <div class="user-data">
+        <div class="featured-researches">
+            <div class="books-citations-container">
+                <div class="books-read">
+                    <p>{{ user_details.total_click_count }}</p>
+                    <h6>Paper Reads</h6>
+                </div>
+            </div>
+            <h4>FEATURED PAPER</h4>
+            {% if user_details.featured_papers %}
+                {% for paper in user_details.featured_papers %}
+                    <div class="research-container">
+                        {% if loop.index == 1 %}
+                            <h3>
+                                <img src="{{ url_for('static', filename='user_profile/assets/ribbon.png') }}" alt="Icon"
+                                    class="icon" style="width: 30px; height: 30px; margin-right: 10px;">
+                                Most viewed papers
+                            </h3>
+                        {% endif %}
+                        <h5><strong>{{ paper.title }}</strong></h5>
+                        <div class="tags">
+                            <span class="tag">{{ paper.paper_type }}</span>
+                            <span class="tag privacy">{{ paper.privacy }}</span>
+                            <span class="tag date">{{ paper.pub_date }}</span>
+                        </div>
+                        {% if paper.abstract %}
+                            <p class="abstract" id="abstract_{{ loop.index }}">
+                                {{ paper.abstract[:200] }}{% if paper.abstract|length > 200 %}... <span class="read-more" onclick="toggleAbstract({{ loop.index }})">Read More</span>{% endif %}
+                            </p>
+                            <p class="full-abstract" id="full_abstract_{{ loop.index }}" style="display: none;">
+                                {{ paper.abstract }} <span class="see-less" onclick="toggleAbstract({{ loop.index }})">See Less</span>
+                            </p>
+                        {% else %}
+                            <p>No abstract available.</p>
+                        {% endif %}
+                        <!-- Inside the loop where you display authors -->
+
+                        <div class="authors">
+                            {% set max_authors = 3 %}
+                            {% set main_author_info = paper.authors_info.split(',')[0] %}
+                            {% set main_author_parts = main_author_info.split('|') %}
+                            {% set main_photo_url = main_author_parts[0] %}
+                            {% set main_author_person_id = main_author_parts[1] %}
+                            {% set main_author_name = main_author_parts[2] %}
+                        
+                            {# Displaying the main author separately #}
+                            <div class="main-author">
+                                {% if main_author_person_id == person_id %}
+                                    <a class="author" onclick="navigateTo('/user_profile/{{ person_id }}')">
+                                {% else %}
+                                    <a class="author" onclick="openOtherUserProfile('{{ main_author_person_id }}')">
+                                {% endif %}
+                                    <img src="{{ main_photo_url or url_for('static', filename='path_to_default_image.jpg') }}" alt="Author" class="Co-author-pic">
+                                    <p>{{ main_author_name }}</p>
+                                </a>
+                            </div>
+                        
+                            {# Displaying co-authors, limited to 3 #}
+                            {% if paper.authors_info %}
+                                {% for author_info in paper.authors_info.split(',')[1:4] %}
+                                    {% set author_parts = author_info.split('|') %}
+                                    {% set photo_url = author_parts[0] %}
+                                    {% set author_person_id = author_parts[1] %}
+                                    {% set author_name = author_parts[2] %}
+                        
+                                    <div class="co-author">
+                                        {% if author_person_id == person_id %}
+                                            <a class="author" onclick="navigateTo('/user_profile/{{ person_id }}')">
+                                        {% else %}
+                                            <a class="author" onclick="openOtherUserProfile('{{ author_person_id }}')">
+                                        {% endif %}
+                                            <img src="{{ photo_url or url_for('static', filename='path_to_default_image.jpg') }}" alt="Author" class="Co-author-pic">
+                                            <p>{{ author_name }}</p>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                        
+                                {# Check if there are more than 3 authors to display a "See more" link #}
+                                {% if paper.authors_info.split(',')|length > max_authors %}
+                                    <div class="see-more-authors" onclick="viewAllAuthors('{{ person_id }}', '{{ paper.paper_id }}')">See more</div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        
+  
+                        <div class="reads-and-view">
+                            <p class="reads">{{ paper.reads }} Reads</p>
+                            <button class="view-file-button" onclick="viewFile('{{ person_id }}', '{{ paper.paper_id }}')">View File</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no_paper">No featured paper available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<style>
+    .authors {
+        cursor: pointer;
+    }
+    .see-more-authors,
+    .read-more,
+    .see-less {
+        color: blue; /* Set the color to blue */
+        cursor: pointer; /* Set cursor to pointer when hovering */
+        text-decoration: underline; /* Underline the link */
+    }
+    
+    /* Add your existing CSS styles */
+
+    .authors {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .authors a {
+        cursor: pointer;
+    }
+    .main-author,
+    .co-authors {
+        margin-right: 20px; /* Adjust the spacing between the main author and co-authors */
+    }
+
+    .co-author {
+        margin-right: 10px; /* Adjust the spacing between co-authors */
+    }
+
+    /* You can add more styles as needed */
+
+
+</style>
+<script>
+    function toggleAbstract(index) {
+        var abstract = document.getElementById('abstract_' + index);
+        var fullAbstract = document.getElementById('full_abstract_' + index);
+
+        if (abstract.style.display === 'none') {
+            abstract.style.display = 'block';
+            fullAbstract.style.display = 'none';
+        } else {
+            abstract.style.display = 'none';
+            fullAbstract.style.display = 'block';
+        }
+    }
+    function viewAllAuthors(personId, paperId) {
+    if (personId === '{{ person_id }}') {
+        var url = '/user_profile/' + personId + '/view_file/' + paperId;
+        window.location.href = url;
+    } else {
+        // Route under the paper owner's ID from the paper table
+        // Here, you might need to fetch the paper owner's ID from the database
+        var paperOwnerId = fetchPaperOwnerId(paperId); // Fetch the owner's ID based on the paper ID
+        var ownerUrl = '/user_profile/' + paperOwnerId + '/view_file/' + paperId;
+        window.location.href = ownerUrl;
+    }
+}
+
+    function viewFile(personId, paperId) {
+    if (personId === '{{ person_id }}') {
+        var url = '/user_profile/' + personId + '/view_file/' + paperId;
+        window.location.href = url;
+    } else {
+        // Route under the paper owner's ID from the paper table
+        // Here, you might need to fetch the paper owner's ID from the database
+        var paperOwnerId = fetchPaperOwnerId(paperId); // Fetch the owner's ID based on the paper ID
+        var ownerUrl = '/user_profile/' + paperOwnerId + '/view_file/' + paperId;
+        window.location.href = ownerUrl;
+    }
+}
+
+function openOtherUserProfile(other_person_id) {
+        window.location.href = '/other_profile/' + other_person_id;
+    }
+    
+</script>
+<link rel="stylesheet" type="text/css"
+      href="{{ url_for('static', filename='user_profile/styles/styles.css') }}">
+    
+{% endblock %}
+

@@ -1,0 +1,215 @@
+.navbar-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo-icon3,
+.logo-icon3 {
+  top: 1px;
+  left: 1px;
+  width: 3px;
+  height: 3px;
+  object-fit: cover;
+  margin-top: 0px;
+}
+.search-1-icon {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 5px;
+  height: 5px;
+  object-fit: cover;
+}
+
+
+/* search entry */
+.search-entry {
+  position: relative;
+  display: flex;
+  column-gap: 1rem;
+  width: 654.72px;
+  height: 41.62px;
+  display: inline-block;
+  border-radius: 5px;
+  margin-left: 70px;
+  margin-top: 10px;
+}
+
+.search-entry input {
+  width: calc(100% - -15px); /* Adjust for padding and button width */
+  height: 100%;
+  padding: 22px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(250, 170, 66, 1);
+  border-radius: 4rem;
+}
+
+.search-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 30px; /* Adjust as needed */
+  border: none;
+  background: none;
+  color: white;
+  border-radius: 0 5px 5px 0; /* Adjust for rounded corners */
+  cursor: pointer;
+}
+/* notif bell */
+.dropdown {
+  position: fixed; /* Set the position to fixed */
+  top: 10px; /* Adjust the top position as needed */
+  right: 10px; /* Adjust the right position as needed */
+  cursor: pointer;
+}
+
+.dropdown > img {
+  background-color: black;
+  border-radius: 9999px;
+  padding: 0.25rem 0.3rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown.active .dropdown-content {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  color: #333;
+}
+/* profile pic*/
+.dropdown-pic {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.notification-icon {
+  background-color: black;
+  position: relative;
+  border-radius: 50%; /* Ensures a circular shape */
+  padding: 7px; /* Increased padding for a more rounded appearance */
+  display: inline-block; /* Ensures the circular background only takes the space it needs */
+  overflow: hidden; /* Ensures the content (image) doesn't extend beyond the circular background */
+}
+
+.notification-icon img {
+  width: 100%; /* Ensures the image takes the full width of the circular container */
+  border-radius: 50%; /* Ensures the image itself is also a perfect circle */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right:-0.5em;
+  width: 80%;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-pic:hover > .dropdown-content ,
+.dropdown:hover > .dropdown-content,
+.dropdown-pic > .dropdown-content:hover,
+.dropdown > .dropdown-content:hover {
+  display: block;
+  background-color: #FFFFFF;
+}
+
+.dropdown-content a {
+  font-size: 12px;
+  text-indent: .5em;
+  display: block;
+  color: #000000;
+  padding: 8px;
+  text-decoration: none;
+  border-bottom: 1.5px solid lightgray;
+}
+
+.dropdown-content a:hover {
+  text-decoration: none;
+  border-bottom: 3px solid gray;
+  cursor:pointer;
+}
+
+.dropdown-item {
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    color: #333;
+}
+/*logout*/
+.logout-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 15px; /* Adjust padding as needed */
+  cursor: pointer;
+  border-radius: 4rem;
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.nav-buttons {
+  display: flex;
+  column-gap: .5rem;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.filter-sort,
+.tags {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  border-radius: 4rem;
+  border: 2px solid var(--color-goldenrod);
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+  color: white;
+}
+
+
+.flash-messages-container {
+  max-width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100%); /* Adjust the width as needed */
+}
+
+.error-message {
+  background-color: #e53e3e; /* Red background for error messages */
+  color: #ffffff; /* White text color for error messages */
+}
+
+.success-message {
+  background-color: #10753a; /* Green background for success messages */
+  color: #ffffff; /* White text color for success messages */
+}
+
+/* Optional: Add hover effect for closing button */
+.flash-messages button:hover {
+  color: #8d1212;
+}
+

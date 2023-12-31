@@ -1,0 +1,102 @@
+<!-- templates/user_profile/request_approval.html -->
+{% extends "master_layout/nav.html" %}
+
+{% block content %}
+<div class="request-approval-container container"> <!-- Added Bootstrap container class -->
+    <h2 style="text-align: center;">Pending Requests</h2>
+    {% if pending_requests %}
+        <div class="table-responsive"> <!-- Added Bootstrap class for responsive table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">Requester</th>
+                        <th class="col-md-3">Paper Title</th>
+                        <th class="col-md-3">Message</th>
+                        <th class="col-md-2">Request Time</th>
+                        <th class="col-md-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in pending_requests %}
+                        <tr>
+                            <td>{{ request.sender_name }}</td>
+                            <td style="max-width: 300px; overflow: hidden;">{{ request.paper_title }}</td>
+                            <td>{{ request.message }}</td>
+                            <td>{{ request.created_at }}</td>
+                            <td>
+                                {% if request.status == 'pending' %}
+                                    <div style="display: flex; gap: 8px;">
+                                        <form method="post" action="{{ url_for('user_profile_blueprint.approve_request_route', request_id=request.request_id) }}">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-success">Approve</button>
+                                        </form>
+                                        <form method="post" action="{{ url_for('user_profile_blueprint.reject_request_route', request_id=request.request_id) }}">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-danger">Reject</button>
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    {{ request.status.capitalize() }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No pending requests.</p>
+    {% endif %}
+</div>
+
+<style>
+    .request-approval-container {
+        margin: 20px;
+    }
+
+    h2, p {
+        text-align: center;
+    }
+        .request-approval-container {
+            margin: 20px;
+        }
+
+        h2, p{
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            margin: 4px;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+        }
+    </style>
+{% endblock %}

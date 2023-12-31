@@ -1,0 +1,220 @@
+.upcoming-activities-wrapper {
+    position: absolute;
+    top: 109px;
+    left: 546px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-3xs);
+  }
+  .upcoming-activities-wrapper {
+    left: 723px;
+  }
+  .upcoming-activities-container {
+    position: absolute;
+    top: 109px;
+    left: 723px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-3xs);
+    cursor: pointer;
+  }
+  .dec-2023 {
+    position: absolute;
+    top: 61px;
+    left: 280px;
+    font-weight: 500;
+    color: var(--color-lightgray);
+  }
+
+/* CSS for upcoming-activites.html */
+#activities-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5rem;
+    margin: 2rem 0 2rem 0;
+  }
+  
+  #activities-list > .conference:nth-child(odd) {
+    border: 2rem solid #faaa42;
+    padding: 1.75rem 1.5rem;
+    border-radius: 8px;
+  }
+  
+  #activities-list > .conference:nth-child(even) {
+    border: 2rem solid #981c24;
+    padding: 1.75rem 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .conference > .title {
+    color: #4f5bf7;
+    font-weight: bold;
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem; /* 32px */
+  }
+  
+  .conference > .date {
+    margin-top: 1rem;
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+  }
+  
+  .conference > .location {
+    margin-top: 1.125rem;
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+  }
+  
+  .conference > .map {
+    margin-top: 0.25rem;
+    outline: none;
+    background: none;
+    border: none;
+    font-weight: bold;
+      font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+    cursor: pointer;
+  }
+  
+  .conference > .about-conference {
+    margin-top: 2rem;
+  }
+  
+  .conference > .about-conference > .title {
+    margin: 0;
+    color: #4f5bf7;
+    font-weight: bold;
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+  }
+  
+  .conference > .about-conference > .description {
+    margin-top: 0.5rem;
+    text-align: justify;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+  }
+  
+  .conference > .organized-by,
+  .conference > .contact-person,
+  .conference > .inquiry-email,
+  .conference > .conference-website {
+    margin-top: 1rem;
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+  }
+  
+  .conference > .organized-by > span,
+  .conference > .contact-person > span,
+  .conference > .inquiry-email > span,
+  .conference > .conference-website > span {
+    color: #4f5bf7;
+    font-weight: bold;
+  }
+  
+  .conference > .important-dates {
+    margin-top: 2rem;
+  }
+  
+  .conference > .important-dates > .title {
+    margin: 0;
+    color: #4f5bf7;
+    font-weight: bold;
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+  }
+  
+  .conference > .important-dates > .dates {
+    display: flex;
+    column-gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .conference > .important-dates > .dates > .date {
+    width: 100%;
+  }
+  
+  .conference > .important-dates > .dates > .date > .title {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+  }
+  
+  .conference > .important-dates > .dates > .date > p:nth-child(2) {
+    border-radius: 8px;
+    width: 75%;
+    margin-top: 0.125rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+  }
+  
+  .conference > .important-dates > .dates > .date.deadline-date > p:nth-child(2) {
+    background-color: #bd3d4b;
+  }
+  
+  .conference > .important-dates > .dates > .date.start-date > p:nth-child(2) {
+    background-color: #4e8857;
+  }
+  
+  .conference > .important-dates > .dates > .date.end-date > p:nth-child(2) {
+    background-color: #7ac6ed;
+  }
+  /* CSS for upcoming-activites.html */
+  
+  .nav-buttons {
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .filter-sort,
+  .tags {
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+    padding: 0.25rem 1rem;
+    border-radius: 4rem;
+    border: 2px solid var(--color-goldenrod);
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+    color: white;
+  }
+
+  .research-feed {
+    position: relative;
+    font-weight: 500;
+  }
+  
+  .research-feed-wrapper {
+    display: flex; /* Changed from 'absolute' to 'flex' */
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  
+  .research-feed-wrapper > a {
+    color: black;
+    font-size: 20px; /* Adjusted font size */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s; /* Added smooth color transition */
+  }
+  
+  .research-feed-wrapper > a:hover {
+    color: blue; /* Change color on hover */
+    text-decoration: underline; /* Add underline on hover */
+  }
+  
+  .option {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+  }
+  

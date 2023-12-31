@@ -1,0 +1,87 @@
+<!-- templates/user_profile/edit_paper.html -->
+{% extends "master_layout/nav.html" %}
+
+{% block content %}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<form method="post" onsubmit="return confirm('Are you sure you want to update this paper?');">
+    <h2><strong>Edit paper</strong></h2>
+    <!-- Add input fields for editing paper details -->
+    <label for="title">Title:</label>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <input type="text" id="title" name="title" value="{{ paper_data.title }}" required><br><br>
+
+    <label for="abstract">Abstract:</label>
+    <textarea id="abstract" name="abstract" required>{{ paper_data.abstract }}</textarea><br><br>
+<!--
+    <label for="subjects">Subjects:</label>
+    <select id="subjects" name="subjects[]" multiple required>
+        {% for subject in subjects %}
+            <option value="{{ subject.subject_id }}" {% if subject.subject_id in existing_subjects %}selected{% endif %}>{{ subject.subjectname }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="authors">Authors:</label>
+    <select id="authors" name="authors[]" multiple required>
+        {% for author in authors %}
+            <option value="{{ author.person_id }}" {% if author.person_id in existing_authors %}selected{% endif %}>{{ author.name }}</option>
+        {% endfor %}
+    </select><br><br>
+-->
+
+    <label for="paper_type">Paper Type:</label>
+    <select id="paper_type" name="paper_type" required>
+        <option value="Research" {% if paper_data.paper_type == 'Research' %}selected{% endif %}>Research</option>
+        <option value="Journal" {% if paper_data.paper_type == 'Journal' %}selected{% endif %}>Journal</option>
+    </select><br><br>
+
+    <label for="privacy">Privacy:</label>
+    <select id="privacy" name="privacy" required>
+        <option value="Public" {% if paper_data.privacy == 'Public' %}selected{% endif %}>Public</option>
+        <option value="Private" {% if paper_data.privacy == 'Private' %}selected{% endif %}>Private</option>
+    </select><br><br>
+
+    <label for="pub_date">Publication Date:</label>
+    <input type="date" id="pub_date" name="pub_date" value="{{ paper_data.pub_date }}" required><br><br>
+
+    <input type="submit" value="Submit">
+    <a href="{{ url_for('user_profile_blueprint.view_file', paper_id=paper_id, person_id=person_id) }}">
+        <a href="#" onclick="goBack()" class="back-button">Cancel</a>
+    </a>
+</form>
+
+
+
+<script>
+    
+    function goBack() {
+        window.history.back();
+    }
+    
+    $(document).ready(function () {
+        // Initialize Select2 for the subjects dropdown with tags
+        $('#subjects').select2({
+            tags: true,
+            tokenSeparators: [',']
+        });
+
+        // Initialize Select2 for the authors dropdown with tags
+        $('#authors').select2({
+            tags: true,
+            tokenSeparators: [',']
+        });
+
+        // Set the preselected values for subjects
+        var existingSubjects = {{ existing_subjects | tojson }};
+        $('#subjects').val(existingSubjects).trigger('change');
+
+        // Set the preselected values for authors
+        var existingAuthors = {{ existing_authors | tojson | safe }};
+        $('#authors').val(existingAuthors).trigger('change');
+    });
+</script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user_profile/styles/edit_paper.css') }}">
+{% endblock %}

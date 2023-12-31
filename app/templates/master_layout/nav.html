@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Start: injected by Adguard -->
+    <title>intellectlink</title>
+    <link href="../../static/master_layout/styles/body.css" rel="stylesheet">
+    <link href="../../static/master_layout/styles/nav.css" rel="stylesheet">
+
+    <script src="../../static/master_layout/scripts/nav.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user_profile/styles/styles.css') }}">
+
+
+ 
+
+    {% block head %}{% endblock %}
+
+    <nav class="navbar navbar-sticky navbar-expand-md navbar-dark" style="background-color:rgba(152, 28, 36, 1);">
+        <a class="navbar-brand" href="{{ url_for('research_blueprint.research_feed', person_id=session['person_id']) }}">
+
+            <img src="{{ url_for('static', filename='master_layout/assets/logo2.png') }}" />
+        </a>        
+        <a class="navbar-brand" style="margin-left: 40px;" href="{{ url_for('research_blueprint.research_feed', person_id=session['person_id']) }}"><strong>Home</strong></a>
+        <a class="navbar-brand" style="margin-left: 30px;" href="{{ url_for('user_profile_blueprint.user_researches', person_id=session['person_id']) }}" >Papers</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <div class="search-entry">
+                        <input type="text" id="searchInput" placeholder="Search topics or keywords">
+                        <button class="search-button" onclick="performSearch()">
+                            <img src="{{ url_for('static', filename='/master_layout/assets/search icon.png') }}" />
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <div class="nav-buttons">
+                <div class="dropdown-pic" onclick="toggleDropdown(this)">
+                    <div class="notification-icon">
+                        <img src="{{ url_for('static', filename='/master_layout/assets/bell-1.png') }}" style ="padding-right: 0px; " />
+                    </div>
+                    <div class="dropdown-content">
+                        <a href= "{{ url_for('user_profile_blueprint.notifications', person_id=session['person_id'])}}" class="dropdown-item">Request Status</a>
+                        <a href="{{ url_for('user_profile_blueprint.request_approval', person_id=session['person_id'])}}" class="dropdown-item">Paper Approval</a>
+                    </div>
+                </div>
+                <div class="dropdown-pic" onclick="toggleDropdown(this)">
+                    <div class="circle">
+                        <img src="{{ session.get('photo_url', url_for('static', filename='/user_profile/assets/placeholder.png')) }}" alt="Profile Picture" style ="
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        object-fit: cover; 
+                        margin-bottom: 10px;"/>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('user_profile_blueprint.user_profile', person_id=session['person_id']) }}" class="dropdown-item">Your profile</a>
+                        <a href="{{ url_for('user_profile_blueprint.user_researches', person_id=session['person_id']) }}" id = "addnew">Add new</a>
+                        <a id = "feedback">Feedback</a>
+                        <a id = "logout" href="/logout">Log out</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container mx-auto mt-3">
+        {% for category, message in messages %}
+          <div id="alert-{{ loop.index }}" class="alert {{ 'alert-danger' if category == 'error' else 'alert-success' }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <script>
+            // Automatically close the alert after 5 seconds (5000 milliseconds)
+            setTimeout(function () {
+              var alert = document.querySelector('#alert-{{ loop.index }}');
+              var bsAlert = new bootstrap.Alert(alert);
+              bsAlert.close();
+            }, 10000);
+          </script>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <script>
+    // Function to handle search
+    function performSearch() {
+        var searchInput = document.getElementById('searchInput');
+        var searchValue = searchInput.value.trim();  // Get the trimmed value
+
+        // Perform the search only if the search value is not empty
+        if (searchValue !== '') {
+            // Redirect to the search page or perform AJAX search
+            // Replace 'your_search_route' with the actual route for your search functionality
+            window.location.href = "{{ url_for('search_blueprint.search') }}?search_term=" + encodeURIComponent(searchValue);
+        } else {
+            alert("Please enter a search term");
+        }
+    }
+
+    // Function to handle pressing 'Enter' key in the search input
+    document.getElementById("searchInput").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            performSearch();
+        }
+    });
+
+
+
+        // Function to update the profile picture when photo_url changes
+        function updateProfilePicture() {
+            var profileCircle = document.getElementById('profileCircle');
+            var img = profileCircle.querySelector('img');
+            var newPhotoUrl = '{{ session.get("photo_url", url_for("static", filename="/path_to_default_image.jpg")) }}';
+            img.src = newPhotoUrl;
+        }
+    
+        // Call the function to update the profile picture
+        updateProfilePicture();
+    </script>
+<script>function navigateTo(url) {
+    window.location.href = url;
+}</script>
+</body>
+</html>

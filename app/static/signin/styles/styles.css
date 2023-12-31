@@ -1,0 +1,120 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* 100% of the viewport height */
+}
+
+.left-half {
+    flex: 1;
+    background-color: #710f0f;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.right-half {
+    flex: 0.4;
+    background-color: #710f0f;
+
+
+}
+
+.right-half img {
+    width: 40vw; /* 50% of the viewport width */
+    height: 100%; /* Full height of the container */
+    display: block;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.left-half img {
+    display: block;
+    margin-top: 10px;
+}
+
+
+.logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+.welcome-text {
+    color: white;
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin-top: 20%;
+
+}
+
+.google-button-container {
+    width: 50%;
+    padding: 5px;
+    background: white;
+    border-radius: 32px;
+    overflow: hidden;
+    border: 1px #333333 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    margin-left: 25%;
+    cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+.google-button-container img {
+    width: 35px;
+    height: 35px;
+    margin-right:60px;
+    margin-bottom: 5px;
+    
+}
+
+.google-connect-text {
+    color: rgb(0, 0, 0);
+    font-size: 22px;
+    font-family: 'Poppins';
+    margin-top: 5px;
+}
+
+
+
+.admin-login-button {
+    width: 10%;
+    padding: 10px;
+    background: white;
+    border-radius: 32px;
+    overflow: hidden;
+    border: 1px #333333 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px; /* Adjust bottom value as needed */
+    left: 10px; /* Adjust left value as needed */
+    cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+.admin-login-text {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: 'Poppins';
+    margin-top: 5px;
+}
+
+.admin-login-button:hover {
+    background-color: #1943b8; /* Change to desired hover background color */
+}
+
+.google-button-container:hover {
+    background-color: #ef9292; /* Change to desired hover background color */
+}
+
+

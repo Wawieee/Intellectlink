@@ -1,0 +1,202 @@
+<!-- templates/user_profile/other_researches.html -->
+{% extends "master_layout/nav.html" %}
+
+{% block content %}
+<div class="user-nav">
+    <div class="user-profile-wrapper">
+        <div class="profile option" onclick="navigateTo('/other_profile/{{ other_person_id }}')">Profile</div>
+        <div class="researches option active" onclick="navigateTo('/other_researches/{{ other_person_id }}')">Papers</div>
+    </div>
+</div>
+<style>
+.user-profile-wrapper .profile,
+.user-profile-wrapper .researches {
+    color: #F55761; /* Default color */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-weight: bold; /* Make the text bolder on hover */
+}
+.profile:hover, .researches:hover {
+    color: #F55761; /* Text color on hover */
+    cursor: pointer;
+    font-weight: bold; /* Make the text bolder */
+}
+
+.profile:active, .researches:active {
+    color: #981C24; /* Text color when clicked */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a shadow on click */
+}
+
+/* Active (clicked) effect for Researches */
+.researches.active {
+    color: #981C24; /* Text color for the active state */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Shadow below the text for the active state */
+}
+</style>
+
+<div class="nav-options">
+    <h4>Type</h4>
+    <div class="nav-option {{ 'active' if selected_type == 'All' else '' }}" onclick="navigateTo('/other_researches/{{ other_person_id }}?type=All')">All</div>
+    <div class="nav-option {{ 'active' if selected_type == 'Research' else '' }}" onclick="navigateTo('/other_researches/{{ other_person_id }}?type=Research')">Research</div>
+    <div class="nav-option {{ 'active' if selected_type == 'Journals' else '' }}" onclick="navigateTo('/other_researches/{{ other_person_id }}?type=Journals')">Journals</div>
+</div>
+
+<div class="filter-options">
+    <h4>Privacy</h4>
+    <div class="filter-option {{ 'active' if selected_privacy == 'All' else '' }}" onclick="navigateTo('/other_researches/{{ other_person_id }}?type={{ selected_type }}&privacy=All')">All</div>
+    <div class="filter-option {{ 'active' if selected_privacy == 'Public' else '' }}" onclick="navigateTo('/other_researches/{{ other_person_id }}?type={{ selected_type }}&privacy=Public')">Public</div>
+    <div class="filter-option {{ 'active' if selected_privacy == 'Private' else '' }}" onclick="navigateTo('/other_researches/{{ other_person_id }}?type={{ selected_type }}&privacy=Private')">Private</div>
+</div>
+
+
+<div class="user-researches-container">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div id="researchContainer">
+        <div class="user-researches{{ 'no-paper' if not other_user_papers }}">
+            {% if other_user_papers %}
+                <h4>Papers</h4>
+                {% for  paper in other_user_papers %}
+                    <div class="research-container">
+                        <h5><strong>{{ paper.title }}</strong></h5>
+                        <div class="tags">
+                            <span class="tag">{{ paper.paper_type }}</span>
+                            <span class="tag privacy">{{ paper.privacy }}</span>
+                            <span class="tag date">{{ paper.pub_date }}</span>
+                        </div>
+                        {% if paper.abstract %}
+                            <p class="abstract" id="abstract_{{ loop.index }}">
+                                {{ paper.abstract[:1000] }}{% if paper.abstract|length > 200 %}... <span class="read-more" onclick="toggleAbstract({{ loop.index }})">Read More</span>{% endif %}
+                            </p>
+                            <p class="full-abstract" id="full_abstract_{{ loop.index }}" style="display: none;">
+                                {{ paper.abstract }} <span class="see-less" onclick="toggleAbstract({{ loop.index }})">See Less</span>
+                            </p>
+                        {% else %}
+                            <p>No abstract available.</p>
+                        {% endif %}
+                        <div class="authors">
+                            {% set max_authors = 4 %}
+                            {% if paper.authors_info %}
+                                {% set authors_count = paper.authors_info.split(',')|length %}
+                                {% for author_info in paper.authors_info.split(',')[:max_authors] %}
+                                    {% set author_parts = author_info.split('|') %}
+                                    {% set photo_url = author_parts[0] %}
+                                    {% set author_person_id = author_parts[1] %}
+                                    {% set author_name = author_parts[2] %}
+                        
+                                    {# Check if the author is the current user or another user #}
+                                    {% if author_person_id == session.get('person_id') %}
+                                        <div class="author" onclick="openProfile('{{ session.get('person_id') }}', '{{ session.get('person_id') }}')">
+                                    {% else %}
+                                        <div class="author" onclick="openProfile('{{ session.get('person_id') }}', '{{ author_person_id }}')">
+                                    {% endif %}
+                                        <img src="{{ photo_url or url_for('static', filename='path_to_default_image.jpg') }}" alt="Author" class="Co-author-pic">
+                                        <p>{{ author_name }}</p>
+                                    </div>
+                                {% endfor %}
+                        
+                                {% if authors_count > max_authors %}
+                                    <div class="see-more-authors" onclick="viewAllAuthors('{{ other_person_id }}', '{{ paper.paper_id }}')">See more</div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <div class="reads-and-view">
+                            <p class="reads">{{ paper.reads }} Reads</p>
+                            <button class="view-file-button" onclick="viewOtherFile('{{ other_person_id }}', '{{ paper.paper_id }}')">View File</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-paper-available">No paper available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {{ 'disabled' if current_page == 1 else '' }}">
+            <a class="page-link" href="{{ url_for('user_profile_blueprint.other_researches', other_person_id=other_person_id, type=selected_type, privacy=selected_privacy, page=current_page-1) }}" tabindex="-1">Previous</a>
+        </li>
+        
+        {% for page_num in range(1, total_pages + 1) %}
+            <li class="page-item {{ 'active' if page_num == current_page else '' }}">
+                <a class="page-link" href="{{ url_for('user_profile_blueprint.other_researches', other_person_id=other_person_id, type=selected_type, privacy=selected_privacy, page=page_num) }}">{{ page_num }}</a>
+            </li>
+        {% endfor %}
+
+        <li class="page-item {{ 'disabled' if current_page == total_pages else '' }}">
+            <a class="page-link" href="{{ url_for('user_profile_blueprint.other_researches', other_person_id=other_person_id, type=selected_type, privacy=selected_privacy, page=current_page+1) }}">Next</a>
+        </li>
+    </ul>
+</nav>
+
+
+<style>
+    .authors {
+        cursor: pointer;
+    }
+    .see-more-authors,
+    .read-more,
+    .see-less {
+        color: blue; /* Set the color to blue */
+        cursor: pointer; /* Set cursor to pointer when hovering */
+        text-decoration: underline; /* Underline the link */
+    }
+
+    .no-paper-available {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 18px;
+        color: gray;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user_profile/styles/styles.css') }}">
+
+<script>
+    function viewAllAuthors(otherPersonId, paperId) {
+        // Check if the current user is an author of the paper
+        var isAuthor = false;  // Replace this with your logic to check if the user is an author
+
+        if (isAuthor) {
+            window.location.href = '/user_profile/' + otherPersonId + '/viewfile/' + paperId;
+        } else {
+            window.location.href = '/other_profile/' + otherPersonId + '/other_viewfile/' + paperId;
+        }
+    }
+
+    function toggleAbstract(index) {
+        var abstract = document.getElementById('abstract_' + index);
+        var fullAbstract = document.getElementById('full_abstract_' + index);
+
+        if (abstract.style.display === 'none') {
+            abstract.style.display = 'block';
+            fullAbstract.style.display = 'none';
+        } else {
+            abstract.style.display = 'none';
+            fullAbstract.style.display = 'block';
+        }
+    }
+    function viewOtherFile(otherPersonId, paperId) {
+        // Check if the current user is an author of the paper
+        var isAuthor = false;  // Replace this with your logic to check if the user is an author
+
+        if (isAuthor) {
+            window.location.href = '/user_profile/' + otherPersonId + '/viewfile/' + paperId;
+        } else {
+            window.location.href = '/other_profile/' + otherPersonId + '/other_viewfile/' + paperId;
+        }
+    }
+    function navigateTo(url) {
+        window.location.href = url;
+    }
+
+    function openProfile(currentUserId, otherUserId) {
+        var url = (currentUserId === otherUserId) ? '/user_profile/' + currentUserId : '/other_profile/' + otherUserId;
+        window.location.href = url;
+    }
+
+</script>
+
+{% endblock %}

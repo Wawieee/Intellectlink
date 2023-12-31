@@ -1,0 +1,1021 @@
+.user-profile-wrapper {
+    display: flex;
+    justify-content: space-between; /* Add space between the elements */
+    max-width: 500px; /* Set a maximum width if needed */
+    margin: 0 auto;
+  }
+
+.read-more,
+.see-less {
+    color: blue; /* Set the color to blue */
+    cursor: pointer; /* Set cursor to pointer when hovering */
+    text-decoration: underline; /* Underline the link */
+}
+body {
+    background-color: #fbfbfb; /* Replace with the color you desire */
+}
+
+.rectangular-container {
+    background-color: #ffffff;
+    height: auto; /* Adjust height as needed */
+    width: 90%;
+    margin: 20px auto; /* Add margin between containers */
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.abstract-container{
+    background-color: #ffffff;
+    height: auto; /* Adjust height as needed */
+    width: 80%;
+    margin: 20px auto; /* Add margin between containers */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box-shadow for visual separation */
+    border-radius: 5px;
+}
+.pages-container {
+    background-color: #ffffff;
+    height: auto; /* Adjust height as needed */
+    width: 70%;
+    margin: 20px auto; /* Add margin between containers */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box-shadow for visual separation */
+    border-radius: 5px;
+}
+
+.dropbtn {
+  background-color: transparent;
+  color: #555;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 24px;
+  outline: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.dropbtn:focus {
+  outline: none;
+}
+
+/* Dropdown content */
+.dropdown-content {
+  min-width: 200px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #555;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+
+
+
+
+
+
+.research-container {
+    max-width: 100%;
+    max-height: auto;
+}
+.top {
+  min-width: 900px;
+  max-width: 900px; /* Set a maximum width if needed */
+  display: flex;
+  justify-content: space-between;
+}
+.dropbtn{
+
+  font-weight: bold;
+  background-color: white;
+  margin-left: 10px;
+}
+.research-container h5 {
+  margin-top: 30px;
+}
+.download-button {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    margin-left: 600px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+
+
+.research-container p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+  font-size: 15px; 
+  color: #000000;
+}
+
+.tags {
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-right: 5px;
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #1987D7;
+  border-radius: 3px;
+  border: 1px solid #1987D7; 
+}
+
+.tag.privacy {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #6c757d;
+  border-radius: 3px;
+  border: 1px solid #6c757d; 
+}
+
+.tag.date {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #6c757d;
+  border: 0px; 
+}
+
+.brief-description {
+  margin-top: 20px;
+}
+
+
+.top {
+  /* Add your existing styles for the top section */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: -10px; /* Adjust margin as needed */
+}
+
+.download-button {
+  padding: 8px 16px;
+  margin-left: 10px; /* Adjust margin between buttons */
+  background-color: #4CAF50; /* Green background color */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.download-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.back-button {
+  padding: 8px 16px;
+  margin-left: 10px; /* Adjust margin between buttons */
+  background-color: #959595;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.back-button:hover {
+  background-color: #606060;
+  color: #e5e5e5;
+}
+
+    /* New styles for author list */
+
+    .author-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+  }
+
+  .author-separator {
+      color: #333; /* Set color for separator bullet */
+      margin: 0 5px; /* Adjust spacing around the separator */
+  }
+
+  .dropbtn {
+      cursor: pointer;
+  }
+
+  .authors a {
+      cursor: pointer;
+  }
+
+  /* Center the iframe */
+  .pdf-container {
+      display: flex;
+      justify-content: center;
+      height: 100vh; /* Adjust the height as needed */
+      margin-bottom: 100px;
+      overflow: auto;
+  }
+
+  /* Adjust the size of the iframe */
+  iframe {
+      width: 80%; /* Adjust the width as needed */
+      height: 85vh; /* Adjust the height as needed */
+      border: 1px solid #ddd; /* Add a border for better visibility */
+  }
+
+
+/*NAV BAR*/
+
+.navbar-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo-icon3,
+.logo-icon3 {
+  top: 1px;
+  left: 1px;
+  width: 3px;
+  height: 3px;
+  object-fit: cover;
+  margin-top: 0px;
+}
+.search-1-icon {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 5px;
+  height: 5px;
+  object-fit: cover;
+}
+
+
+/* search entry */
+.search-entry {
+  position: relative;
+  display: flex;
+  column-gap: 1rem;
+  width: 654.72px;
+  height: 41.62px;
+  display: inline-block;
+  border-radius: 5px;
+  margin-left: 70px;
+  margin-top: 10px;
+}
+
+.search-entry input {
+  width: calc(100% - -15px); /* Adjust for padding and button width */
+  height: 100%;
+  padding: 22px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(250, 170, 66, 1);
+  border-radius: 4rem;
+}
+
+.search-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 30px; /* Adjust as needed */
+  border: none;
+  background: none;
+  color: white;
+  border-radius: 0 5px 5px 0; /* Adjust for rounded corners */
+  cursor: pointer;
+}
+/* notif bell*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown > img {
+  background-color: black;
+  border-radius: 9999px;
+  padding: 0.25rem 0.3rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown.active .dropdown-content {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  color: #333;
+}
+/* profile pic*/
+.dropdown-pic {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.notification-icon {
+  background-color: black;
+  position: relative;
+  border-radius: 50%; /* Ensures a circular shape */
+  padding: 7px; /* Increased padding for a more rounded appearance */
+  display: inline-block; /* Ensures the circular background only takes the space it needs */
+  overflow: hidden; /* Ensures the content (image) doesn't extend beyond the circular background */
+}
+
+.notification-icon img {
+  width: 100%; /* Ensures the image takes the full width of the circular container */
+  border-radius: 50%; /* Ensures the image itself is also a perfect circle */
+}
+
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right:-0.5em;
+  width: 80%;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-pic:hover > .dropdown-content ,
+.dropdown:hover > .dropdown-content,
+.dropdown-pic > .dropdown-content:hover,
+.dropdown > .dropdown-content:hover {
+  display: block;
+  background-color: #FFFFFF;
+}
+
+.dropdown-content a {
+  font-size: 12px;
+  text-indent: .5em;
+  display: block;
+  color: #000000;
+  padding: 8px;
+  text-decoration: none;
+  border-bottom: 1.5px solid lightgray;
+}
+
+.dropdown-content a:hover {
+  text-decoration: none;
+  border-bottom: 3px solid gray;
+  cursor:pointer;
+}
+
+.dropdown-item {
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    color: #333;
+}
+/*logout*/
+.logout-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 15px; /* Adjust padding as needed */
+  cursor: pointer;
+  border-radius: 4rem;
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+/* feed option */
+.research-feed-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 4rem 0;
+}
+
+.research-feed-wrapper > a {
+  color: black;
+  text-decoration: none;
+}
+
+.option {
+  position: relative;
+  cursor: pointer;
+  text-align: center; /* Center the text */
+  padding: 10px; /* Add padding for better visibility */
+}
+
+.option::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: transparent;
+  transition: width 0.3s ease;
+}
+
+.option:hover::after,
+.option.active::after {
+  width: 100%; /* Expand the line on hover or when the option is selected */
+  background-color: yellow;
+}
+
+/* Add styles for sliding animation */
+.team-container {
+  text-overflow: hidden;
+  margin-left: 200px;
+  margin-top: 50%;
+}
+
+.team-card {
+  transition: transform 0.5s ease-in-out;
+  height: 300px; /* Set a fixed height for the card */
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  margin-top: 20%;
+  margin-left: 80%;
+}
+
+.card-body {
+  overflow-y: auto; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
+}
+
+.card-title{
+  -webkit-text-stroke-width: 1px;
+  text-transform: capitalize;
+}
+.card-text {
+  font-size: 1em; /* Adjust font size using relative units */
+  text-align: justify;
+}
+
+/* Add styles for hiding other cards */
+.team-card:not(:first-child) {
+  height: 300px; /* Set a fixed height for the card */
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*This is for the pop up for adding new work.*/
+#modal-container .inputlabel {
+  display:flex;
+  column-gap: 0.5rem;
+}
+
+#modal-container .inputlabel h4{
+  color:black;
+}
+
+#modal-container .inputlabel .requiredfield{
+  color:maroon;
+  font-weight: 200;
+}
+
+#modal-container {
+  position: fixed;
+  display: none;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  background-color: #CB8C90;
+  width: 100%;
+  height: 100%;
+  max-width: 40rem;
+  max-height: 90vh;
+  margin: 1rem auto;
+  border-radius: 15px;
+  padding: 1.3rem;
+}
+
+.modal > .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal input {
+  padding: 0.7rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.modal p {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0.4rem 0 0.2rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.4rem;
+  font-weight: 700;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1em;
+}
+
+.btn-open {
+  position: absolute;
+  bottom: 150px;
+}
+
+.btn-close {
+  text-align:right;
+  padding: 0.5rem 0.7rem;
+  background: #eee;
+  border-radius: 50%;
+}
+
+.btn-close:hover{
+  background:#981C24;
+  transition: .4s;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+.modal > .header > p {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  color:black;
+}
+
+#addworkform {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  row-gap: 1rem;
+  overflow-y: auto;
+}
+
+#addworkform > .work > .custom-file-upload {
+  width: 90%;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 0.75rem 12px;
+  box-shadow: 2px 2px 5px #00000033; 
+  margin-bottom:10px;
+  background-color: white;
+  cursor: pointer;
+  color:black;
+}
+
+#addworkform > .work > .custom-file-upload > #file-input {
+  display:none;
+  color:transparent;
+}
+
+#addworkform > .work > .custom-file-upload > p{
+  color:black;
+  font-size:14px;
+}
+
+#addworkform > .title > .titleinput {
+  outline:none;
+  width: 90%;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 0.75rem 12px;
+  box-shadow: 2px 2px 5px #00000033; 
+  margin-bottom:10px;
+  background-color: white;
+}
+
+#addworkform > .publisher > .publisherinput {
+  outline:none;
+  width: 90%;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 0.75rem 12px;
+  box-shadow: 2px 2px 5px #00000033; 
+  margin-bottom:10px;
+  background-color: white;
+}
+
+#addworkform > .type > .typeinput {
+  font-size: 14px;
+  margin-bottom:10px;
+  width: 90%;
+  height:40px;
+  outline:none;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 0 12px;
+  height: 3.25rem;
+  box-shadow: 2px 2px 5px #00000033;
+  background-color: white;
+}
+
+#addworkform > .co-authors > .authors-container {
+  width: 90%;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 5px; 
+  box-shadow: 2px 2px 5px #00000033;
+  background-color: white;
+  margin-bottom:5px;
+}
+
+#addworkform > .co-authors > .authors-container #addauthorbtn {
+  position:relative;
+  border:none;
+  background:transparent;
+  font-weight:100;
+  font-size:14px;
+  padding: 6px 12px;
+  color:black;
+}
+
+#addworkform > .co-authors > .authors-container .dropdown-click {
+  position: relative;
+  display: inline-block;
+  margin-right: 2em;
+}
+#addworkform > .co-authors > .authors-container .dropdown-click .authorchoices {
+  display: none;
+  position: absolute;
+  top: 10;
+  width: 100%;
+}
+
+#addworkform > .co-authors > .authors-container .dropdown-click.open .authorchoices {
+  display: block;
+  background-color: white;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 5px; 
+  box-shadow: 2px 2px 5px #00000033; 
+  z-index: 10;
+}
+
+
+#addworkform > .co-authors >  .authors-container .dropdown-click ul button{
+  text-align:left;
+  width: 100%;
+  border:none;
+  background-color: transparent;
+  padding:5px;
+}
+
+#addworkform > .co-authors > .authors-container .dropdown-click #authors{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width:500px;
+}
+
+#addworkform > .co-authors > .authors-container .dropdown-click #authors p { 
+  font-size:12px;
+  display: inline-block; 
+  width:140px;
+  background-color: #f2f2f2; 
+  color: #333; 
+  border-radius: 20px; 
+  padding: 5px 10px; 
+} 
+
+#addworkform > .co-authors > .authors-container .dropdown-click #authors .delete-button{
+  float:inline-end;
+}
+
+#addworkform > .abstract > #abstractheader{
+  color:black;
+  margin-bottom:5px;
+  margin-left:30px; 
+}
+
+#addworkform > .abstract > #abstract-textfield {
+  width: 90%;
+  height:100px;
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 5px; 
+  box-shadow: 2px 2px 5px #00000033; 
+  outline:none;
+}
+
+#addworkform > .tags-container > .tags-input {
+  display: inline-block; 
+  position: relative; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  padding: 0.75rem 12px;
+  box-shadow: 2px 2px 5px #00000033; 
+  width: 90%; 
+  background-color: white;
+  margin-top:0px;
+}
+
+#addworkform > .tags-container > .tags-input > input {
+  width: 100%;
+}
+
+#addworkform > .tags-container > .tags-input ul {
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
+#addworkform > .tags-container > .tags-input li { 
+  display: inline-block; 
+  background-color: #f2f2f2; 
+  color: #333; 
+  border-radius: 20px; 
+  padding: 5px 10px; 
+  margin-right: 5px; 
+  margin-bottom: 5px; 
+} 
+
+#addworkform > .tags-container > .tags-input input[type="text"] { 
+  border: none; 
+  outline: none; 
+  padding: 5px; 
+  font-size: 14px; 
+} 
+
+#addworkform > .tags-container > .tags-input input[type="text"]:focus { 
+  outline: none; 
+} 
+
+#addworkform > .tags-container > .tags-input .delete-button { 
+  background-color: transparent; 
+  border: none; 
+  color: #999; 
+  cursor: pointer; 
+  margin-left: 5px; 
+} 
+
+#addworkform > .datepublished > input {
+  margin-bottom: 10px;
+  outline:none;
+}
+
+#addworkform > .visibility > .radio {
+  margin-left:17px;
+  margin-bottom: 15px;
+  color: white;
+  font-size:18px;
+}
+
+/* CSS for upcoming-activites.html */
+#activities-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5rem;
+  margin: 2rem 0 2rem 0;
+}
+
+#activities-list > .conference:nth-child(odd) {
+  border: 2rem solid #faaa42;
+  padding: 1.75rem 1.5rem;
+  border-radius: 8px;
+}
+
+#activities-list > .conference:nth-child(even) {
+  border: 2rem solid #981c24;
+  padding: 1.75rem 1.5rem;
+  border-radius: 8px;
+}
+
+.conference > .title {
+  color: #4f5bf7;
+  font-weight: bold;
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+}
+
+.conference > .date {
+  margin-top: 1rem;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+}
+
+.conference > .location {
+  margin-top: 1.125rem;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+}
+
+.conference > .map {
+  margin-top: 0.25rem;
+  outline: none;
+  background: none;
+  border: none;
+  font-weight: bold;
+	font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+  cursor: pointer;
+}
+
+.conference > .about-conference {
+  margin-top: 2rem;
+}
+
+.conference > .about-conference > .title {
+  margin: 0;
+  color: #4f5bf7;
+  font-weight: bold;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.conference > .about-conference > .description {
+  margin-top: 0.5rem;
+  text-align: justify;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.conference > .organized-by,
+.conference > .contact-person,
+.conference > .inquiry-email,
+.conference > .conference-website {
+  margin-top: 1rem;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+}
+
+.conference > .organized-by > span,
+.conference > .contact-person > span,
+.conference > .inquiry-email > span,
+.conference > .conference-website > span {
+  color: #4f5bf7;
+  font-weight: bold;
+}
+
+.conference > .important-dates {
+  margin-top: 2rem;
+}
+
+.conference > .important-dates > .title {
+  margin: 0;
+  color: #4f5bf7;
+  font-weight: bold;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.conference > .important-dates > .dates {
+  display: flex;
+  column-gap: 1rem;
+  margin-top: 1rem;
+}
+
+.conference > .important-dates > .dates > .date {
+  width: 100%;
+}
+
+.conference > .important-dates > .dates > .date > .title {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.conference > .important-dates > .dates > .date > p:nth-child(2) {
+  border-radius: 8px;
+  width: 75%;
+  margin-top: 0.125rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.conference > .important-dates > .dates > .date.deadline-date > p:nth-child(2) {
+  background-color: #bd3d4b;
+}
+
+.conference > .important-dates > .dates > .date.start-date > p:nth-child(2) {
+  background-color: #4e8857;
+}
+
+.conference > .important-dates > .dates > .date.end-date > p:nth-child(2) {
+  background-color: #7ac6ed;
+}
+/* CSS for upcoming-activites.html */
+
+.nav-buttons {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.filter-sort,
+.tags {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  border-radius: 4rem;
+  border: 2px solid var(--color-goldenrod);
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+  color: white;
+}
+
+
+.flash-messages-container {
+  max-width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100%); /* Adjust the width as needed */
+}
+
+.error-message {
+  background-color: #e53e3e; /* Red background for error messages */
+  color: #ffffff; /* White text color for error messages */
+}
+
+.success-message {
+  background-color: #10753a; /* Green background for success messages */
+  color: #ffffff; /* White text color for success messages */
+}
+
+/* Optional: Add hover effect for closing button */
+.flash-messages button:hover {
+  color: #8d1212;
+}
+
+.circle {
+  width: 55px; /* Set the desired width */
+  height: 55px; /* Set the desired height */
+  border-radius: 55%; /* Make it circular */
+  overflow: hidden; /* Hide overflowing content */
+  margin-right: 30px; /* Adjust as needed */
+  margin-bottom: 3px;
+}
+
+.circle img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover; 
+  margin-bottom: 10px;
+}

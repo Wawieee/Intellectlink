@@ -1,0 +1,124 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: auto; /* Allow overflow */
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* 100% of the viewport height */
+    overflow: auto; /* Allow overflow */
+}
+
+.left-half {
+    flex: 1;
+    background-color: #710f0f;
+    align-items: flex-start; /* Align items to the start (left) */
+    justify-content: right;
+    text-align: center;
+    overflow: auto; /* Allow overflow */
+}
+
+.right-half {
+    flex: 0.4;
+    background-color: #710f0f;
+}
+
+/* Hide scrollbar for webkit browsers (Chrome, Safari) */
+.right-half::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.right-half::-webkit-scrollbar-thumb {
+    background-color: #710f0f;
+}
+
+.right-half img {
+    width: 40vw; /* 50% of the viewport width */
+    height: 97%; /* Full height of the container */
+    display: block;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+.welcome-text {
+    color: white;
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin-top: 3%;
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.left-half img {
+    display: block;
+    margin-top: 10px;
+}
+
+.welcome-text2 {
+    color: #FFBA07;
+    font-size: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+    margin-top: 3%;
+    margin-bottom: 50px;
+}
+
+.checkbox-label {
+    font-size: 45px; /* Adjust the font size as needed */
+    margin-top: 15px;
+    margin-left: 34%;
+    margin-bottom: 10px;
+    display: block; /* Make labels block-level to stack them vertically */
+    line-height: 25px; /* Set line height to match the checkbox height */
+    color: white;
+    text-align: left;
+}
+
+.checkbox-input {
+    width: 35px; /* Adjust the checkbox size as needed */
+    height: 35px; /* Adjust the checkbox size as needed */
+    margin-right: 5px;
+    transition: background-color 1s; /* Add a smooth transition effect */
+    text-align: left;
+}
+
+/* Add hover styles */
+.checkbox-input:hover {
+    background-color: #FFBA07;
+}
+
+.create-account-button {
+    width: 20%;
+    padding: 10px;
+    background: #FFBA07;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    border: 1px #333333 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+    margin-left: 40%;
+    margin-bottom: 10px;
+    cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+.create-account-button-content {
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+}
+
+.create-account-button:hover {
+    background: #d94629; /* Change the background color on hover */
+}

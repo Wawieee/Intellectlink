@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Start: injected by Adguard -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <title>intellectlink</title>
+    <link href="../../static/styles/body.css" rel="stylesheet">
+    <link href="../../static/styles/nav.css" rel="stylesheet">
+
+    <script src="../../static/scripts/nav.js" defer></script>
+
+    {% block head %}{% endblock %}
+
+
+    <nav class="navbar navbar-sticky navbar-expand-md navbar-dark" style="background-color:rgba(152, 28, 36, 1);">
+        <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='/assets/logo2.png') }}" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <div class="search-entry">
+                        <input type="text" placeholder="Search topics or keywords">
+                        <button class="search-button" onclick="searchFunction()"><img src="{{ url_for('static', filename='/assets/search icon.png') }}" /></button>
+                    </div>
+                </li>
+            </ul>
+            <div class="nav-buttons">
+                <div class="dropdown" onclick="toggleDropdown(this)">
+                    <img src="{{ url_for('static', filename='/assets/bell-1.png') }}" />
+                    <div class="dropdown-content">
+                        <a href="#" class="dropdown-item">Option 1</a>
+                        <a href="#" class="dropdown-item">Option 2</a>
+
+                    </div>
+                </div>
+                <div class="dropdown-pic" onclick="toggleDropdown(this)">
+                    <img src="{{ url_for('static', filename='/assets/profile pic1.png') }}" />
+                    <div class="dropdown-content">
+                        <a rel="noopener" target="_blank" href="">Your profile</a>
+                        <a id = "addnew" onclick="openModal()">Add new</a>
+                        <a id = "feedback">Feedback</a>
+                    </div>
+                </div>
+                <button class="logout-button">
+                    <div class="logout-button-child"></div>
+                    <div class="log-out"><a href="/logout">Log Out</a></div>
+                    
+                </button>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

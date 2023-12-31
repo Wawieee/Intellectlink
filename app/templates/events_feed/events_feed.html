@@ -1,0 +1,86 @@
+{% extends "master_layout/nav.html" %}
+
+
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+
+{% block content %}
+
+
+<div class="user-nav">
+    <div class="user-profile-wrapper">
+        <div class="profile option" onclick="navigateTo('/research-feed/{{ person_id }}')">Research Feed</div>
+        <div class="researches option active" onclick="navigateTo('/events_feed/{{ person_id }}')">Upcoming Activities</div>
+    </div>
+</div>
+<style>
+.user-profile-wrapper .profile,
+.user-profile-wrapper .researches {
+    color: #F55761; /* Default color */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-weight: bold; /* Make the text bolder on hover */
+}
+.profile:hover, .researches:hover {
+    color: #F55761; /* Text color on hover */
+    cursor: pointer;
+    font-weight: bold; /* Make the text bolder */
+}
+
+.researches:active, .researches:active {
+    color: #981C24; /* Text color when clicked */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a shadow on click */
+}
+
+/* Active (clicked) effect for Profile */
+.researches.active {
+    color: #981C24; /* Text color for the active state */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Shadow below the text for the active state */
+}
+</style>
+
+
+<link rel="stylesheet" type="text/css"
+      href="{{ url_for('static', filename='events_feed/styles/styles.css') }}">
+    
+<div class="research-feed">
+
+    <section id="activities-list">
+        {% for conference in conferences %}
+            <div class="conference">
+                <h4 class="title">{{ conference.title }}</h4>
+                <p class="date">📅 {{ conference.start_date }}</p>
+                <p class="location">📌 {{ conference.location }}</p>
+                <button class="map">🗺️ View on Map</button>
+                <div class="about-conference">
+                    <p class="title">About Conference:</p>
+                    <p class="description">{{conference.event_desc}}</p>
+                </div>
+                <p class="organized-by"><span>Conference Organized by:</span> {{ conference.organizer }}</p>
+                <p class="contact-person"><span>Conference Contact Person:</span> {{conference.position}}</p>
+                <p class="inquiry-email"><span>Conference Inquiry Email ID:</span> {{ conference.email }}</p>
+                <div class="important-dates">
+                    <p class="title">Important Dates</p>
+                    <div class="dates">
+                        <div class="date deadline-date">
+                            <p class="title">Deadline for Submission / Apply</p>
+                            <p>{{conference.deadline}}</p>
+                        </div>
+                        <div class="date start-date">
+                            <p class="title">Conference Start Date</p>
+                            <p>{{ conference.start_date }}</p>
+                        </div>
+                        <div class="date end-date">
+                            <p class="title">Conference End Date</p>
+                            <p>{{ conference.end_date }}</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="conference-website"><span>Conference Website:</span> <a href="https://www.google.com/" target="_blank">https://www.google.com/</a></p>
+            </div>
+        {% endfor %}
+    </section>
+
+</div>
+{% endblock %}

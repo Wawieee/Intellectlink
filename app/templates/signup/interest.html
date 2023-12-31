@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='signup/styles/styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-half">
+            <img src="{{ url_for('static', filename='signup/assets/logo2.png') }}" alt="logo2">
+            <div class="welcome-text">GETTING TO KNOW EACH OTHER!</div>
+            <div class="welcome-text2">What are your Interests?</div>
+
+            {% if subjects %}
+                <form action="{{ url_for('signuproute.interest_route') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                    {% set subjects_to_display = subjects[:9] %} {# Display only the first 9 subjects #}
+
+                    {% for subject in subjects_to_display %}
+                        <label class="checkbox-label">
+                            <input class="checkbox-input" type="checkbox" name="interests" value="{{ subject.subject_id }}"> {{ subject.subjectname }}
+                        </label>
+                    {% endfor %}
+
+                    <button class="create-account-button" type="submit">
+                        <div class="create-account-button-content">Continue</div>
+                    </button>
+                </form>
+            {% else %}
+                <p>No subjects available.</p>
+            {% endif %}
+        </div>
+
+        <div class="right-half">
+            <img src="{{ url_for('static', filename='signup/assets/Rectangle.png') }}" alt="Robot display">
+        </div>
+    </div>
+</body>
+
+</html>

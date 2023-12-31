@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='admin/styles/signin.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-half">
+            <img src="{{ url_for('static', filename='signin/assets/logo2.png') }}" alt="logo2">
+            <!-- Change this to JavaScript for message flashes when you can. -->
+            <div class="notification">{{notif}}</div> 
+            <div class="welcome-text">Hello! Need to make changes?</div>
+            <form class="inputs" id="login_form" action="/admin" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <label for="username">Username: </label>
+                <input type = 'text' id="username" name="username">
+            </br>
+                <label for="password">Password: </label>
+                <input type = 'password' id="password" name="password">
+            </br>
+            <button type='submit' id='login-btn'>Login</button>
+            </form>
+            <div class="button-container" id="goback" onclick="window.location.href='/';">
+                <div class="button-text">Go Back</div>
+            </div>
+        </div>
+        <div class="right-half">
+            <img src="{{ url_for('static', filename='signin/assets/signuo.jpg') }}" alt="Robot display">
+        </div>
+    </div>
+</body>
+</html>
+

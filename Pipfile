@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "2.3.3"
+flask-mysql-connector = "*"
+flask-bootstrap = "*"
+flask-wtf = "*"
+python-dotenv = "*"
+authlib = "*"
+requests = "*"
+flask-oauthlib = "*"
+google-auth-oauthlib = "*"
+oauthlib = "*"
+google-auth = "*"
+requests-oauthlib = "*"
+flask-cors = "*"
+wtforms = "*"
+flask-paginate = "*"
+humanize = "*"
+flask-session = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

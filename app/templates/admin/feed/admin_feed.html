@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='admin/styles/feed.css') }}">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+      />
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
+</head>
+<body>
+        <div class="left-half">
+            <div class ="header">
+            <img src="{{ url_for('static', filename='signin/assets/logo2.png') }}" alt="logo2">
+            <div class="button-container" id="goback" onclick="window.location.href='/';">
+                <div class="button-text">Log Out</div>
+            </div>
+            </div>
+            <div class="feed-body">                
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'Users')" id="defaultOpen">Admins and Users</button>
+                    <button class="tablinks" onclick="openTab(event, 'Events')">Events</button>
+                  </div>
+                  
+                  <div id="Users" class="tabcontent">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                      <div class="alert alert-info">
+                          <ul>
+                              {% for message in messages %}
+                                  <li>{{ message }}</li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                    {% endif %}
+                    {% endwith %}
+                    <div class="tables-contain">
+                    <div class="table-container">
+                    <div class="table-head">
+                    <h3>Admins</h3>
+                    <a href="#" class="btn btn-primary btn-sm btn-add" data-bs-toggle="modal" data-bs-target="#AddAdminModal">Add Admin</a>
+                    </div>
+                    <table id="adminsTable" class="table table-striped" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for admin in admins %}
+                          <tr>
+                            <td>{{ admin.adminID }}</td>
+                            <td>{{ admin.username }}</td>
+                            <td>
+                                <a href="#" class="btn btn-outline-danger btn-sm btn-delete" data-admin-id="{{ admin.adminID }}" data-bs-toggle="modal" data-bs-target="#DeleteAdminModal">Delete</a>
+                              <a href="#" class="btn btn-outline-success btn-sm btn-edit" data-admin-id="{{ admin.adminID }}" data-bs-toggle="modal" data-bs-target="#EditAdminModal">Edit</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+
+                        <div class="table-container" id="usersContain">
+                            <div class="table-head">
+                            <h3>Users</h3>
+                            </div>
+                            <table id="usersTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for user in users %}
+                                  <tr>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                      <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-user-id="{{ user.person_id }}" data-bs-toggle="modal" data-bs-target="#DeleteUserModal">Delete</button>
+                                      <a href="#" class="btn btn-outline-success btn-sm btn-edit" data-user-id="{{ user.person_id }}" data-bs-toggle="modal" data-bs-target="#EditUserModal">Edit</a>
+                                    
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                  
+                  <div id="Events" class="tabcontent">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                      <div class="alert alert-info">
+                          <ul>
+                              {% for message in messages %}
+                                  <li>{{ message }}</li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                    {% endif %}
+                    {% endwith %}
+                    <div class="table-container" id="events_table_container">
+                        <div class="table-head">
+                        <h3>Events</h3>
+                        <a href="#" class="btn btn-primary btn-sm btn-add" data-bs-toggle="modal" data-bs-target="#AddEventModal">Add Event</a>
+                        </div>
+                        <table id="eventsTable" class="table table-striped" style="width:100%">
+                            <thead>
+                              <tr>
+                                <th>Title</th>
+                                <th>Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for conference in conferences %}
+                              <tr>
+                                <td>{{ conference.title }}, {{conference.start_date}}, {{conference.location}}</td>
+                                <td>
+                                  <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-event-id="{{ conference.conference_id }}" data-bs-toggle="modal" data-bs-target="#DeleteEventModal">Delete</button>
+                                  <a href="#" class="btn btn-outline-success btn-sm btn-edit" data-event-id="{{ conference.conference_id }}" data-bs-toggle="modal" data-bs-target="#EditEventModal">Edit</a>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                  </div>           
+            </div>
+        </div>
+
+        <!--MODALS-->
+
+        <!--ADMIN CRUD-->
+        <!--CONFIRM DELETE ADMIN-->
+        <div class="modal fade" id="DeleteAdminModal" tabindex="-1" aria-labelledby="DeleteAdminModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="DeleteAdminModalLabel">Confirm Delete</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="DeleteAdminForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="delete_admin_id" id = "delete_admin_id"/>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to delete this admin?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" value="Delete">Delete Admin</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <!--ADD ADMIN-->
+        <div class="modal fade" id="AddAdminModal" tabindex="-1" aria-labelledby="AddAdminModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddAdminModalLabel">Add Admin</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <form id="AddAdminForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  <div class="modal-body">
+                    <div class="col-md-6 mb-3">
+                        <label for="admin_user">Username:</label>
+                        <input type="text" class="form-control" id="admin_user" name="admin_user" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="admin_pass">Password</label>
+                        <input type="password" class="form-control" id="admin_pass" name="admin_pass" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="admin_confirm">Confirm Password</label>
+                        <input type="password" class="form-control" id="admin_confirm" name="admin_confirm" required>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" value="Save changes">Add Admin</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <!--EDIT ADMIN-->
+        <div class="modal fade" id="EditAdminModal" tabindex="-1" aria-labelledby="EditAdminModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="EditAdminModalLabel">Edit Admin</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <form id="EditAdminForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="edit_admin_id" id = "edit_admin_id"/>
+                  <div class="modal-body">
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_admin_user">Username:</label>
+                        <input type="text" class="form-control" id="edit_admin_user" name="edit_admin_user" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_admin_pass">Password</label>
+                        <input type="password" class="form-control" id="edit_admin_pass" name="edit_admin_pass" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_admin_confirm">Confirm Password</label>
+                        <input type="password" class="form-control" id="edit_admin_confirm" name="edit_admin_confirm" required>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" value="Save changes">Edit Admin</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        <!--USER CRUD-->
+        <!--CONFIRM DELETE USER-->
+        <div class="modal fade" id="DeleteUserModal" tabindex="-1" aria-labelledby="DeleteUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="DeleteUserModalLabel">Confirm Delete</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="DeleteUserForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="delete_user_id" id = "delete_user_id"/>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to delete this user?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" value="Delete">Delete User</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        <!--EDIT USER-->
+        <div class="modal fade" id="EditUserModal" tabindex="-1" aria-labelledby="EditUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="EditUserModalLabel">Edit User</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <form id="EditUserForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="edit_user_id" id = "edit_user_id"/>
+                  <div class="modal-body">
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_user_name">Name:</label>
+                        <input type="text" class="form-control" id="edit_user_name" name="edit_user_name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_user_email">Email</label>
+                        <input type="email" class="form-control" id="edit_user_email" name="edit_user_email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_user_phone">Phone</label>
+                        <input type="text" class="form-control" id="edit_user_phone" name="edit_user_phone" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_user_address">Address</label>
+                        <input type="text" class="form-control" id="edit_user_address" name="edit_user_address" required>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" value="Save changes">Edit User</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!--EVENTS CRUD-->
+          <!--ADD EVENT-->
+        <div class="modal fade" id="AddEventModal" tabindex="-1" aria-labelledby="AddEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddEventModalLabel">Add Event</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <form id="AddEventForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  <div class="modal-body">
+                    <div class="col-md-6 mb-3">
+                        <label for="event_title">Title:</label>
+                        <input type="text" class="form-control" id="event_title" name="event_title" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_desc">Event Description:</label>
+                        <input type="text" class="form-control" id="event_desc" name="event_desc" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_loc">Location:</label>
+                        <input type="text" class="form-control" id="event_loc" name="event_loc" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_org">Organizer:</label>
+                        <input type="text" class="form-control" id="event_org" name="event_org" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_pos">Position:</label>
+                        <input type="text" class="form-control" id="event_pos" name="event_pos" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_email">Email:</label>
+                        <input type="email" class="form-control" id="event_email" name="event_email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_dead">Deadline:</label>
+                        <input type="date" class="form-control" id="event_dead" name="event_dead" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_start">Start Date:</label>
+                        <input type="date" class="form-control" id="event_start" name="event_start" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="event_end">End Date:</label>
+                        <input type="date" class="form-control" id="event_end" name="event_end" required>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" value="Save changes">Add Event</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!--EDIT EVENT-->
+        <div class="modal fade" id="EditEventModal" tabindex="-1" aria-labelledby="EditEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="EditEventModalLabel">Edit Event</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <form id="EditEventForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="edit_event_id" id = "edit_event_id"/>
+                  <div class="modal-body">
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_title">Title:</label>
+                        <input type="text" class="form-control" id="edit_event_title" name="edit_event_title" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_desc">Event Description:</label>
+                        <input type="text" class="form-control" id="edit_event_desc" name="edit_event_desc" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_loc">Location:</label>
+                        <input type="text" class="form-control" id="edit_event_loc" name="edit_event_loc" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_org">Organizer:</label>
+                        <input type="text" class="form-control" id="edit_event_org" name="edit_event_org" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_pos">Position:</label>
+                        <input type="text" class="form-control" id="edit_event_pos" name="edit_event_pos" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_email">Email:</label>
+                        <input type="email" class="form-control" id="edit_event_email" name="edit_event_email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_dead">Deadline:</label>
+                        <input type="date" class="form-control" id="edit_event_dead" name="edit_event_dead" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_start">Start Date:</label>
+                        <input type="date" class="form-control" id="edit_event_start" name="edit_event_start" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="edit_event_end">End Date:</label>
+                        <input type="date" class="form-control" id="edit_event_end" name="edit_event_end" required>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" value="Save changes">Edit Event</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!--DELETE EVENT-->
+          <div class="modal fade" id="DeleteEventModal" tabindex="-1" aria-labelledby="DeleteEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="DeleteEventModalLabel">Confirm Delete</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="DeleteEventForm" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="delete_event_id" id = "delete_event_id"/>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to delete this event?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" value="Delete">Delete Event</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+</body>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"
+      ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+    <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#adminsTable').DataTable();
+
+        $('#adminsTable').on('click', '.btn-delete', function () {
+            var delAdminID = $(this).data('admin-id');
+            var del_admin = document.getElementById("delete_admin_id");
+            del_admin.value = delAdminID;
+        });
+
+        $('#adminsTable').on('click', '.btn-edit', function () {
+            var editAdminID = $(this).data('admin-id');
+            var edit_admin = document.getElementById("edit_admin_id");
+            edit_admin.value = editAdminID;
+        });
+    });
+    $(document).ready(function() {
+        $('#usersTable').DataTable();
+    
+        $('#usersTable').on('click', '.btn-delete', function () {
+            var delUserID = $(this).data('user-id');
+            var del_user = document.getElementById("delete_user_id");
+            del_user.value = delUserID;
+        });
+
+        $('#usersTable').on('click', '.btn-edit', function () {
+            var editUserID = $(this).data('user-id');
+            var edit_user = document.getElementById("edit_user_id");
+            edit_user.value = editUserID;
+        });
+    });
+    $(document).ready(function() {
+        $('#eventsTable').DataTable();
+    
+        $('#eventsTable').on('click', '.btn-edit', function () {
+            var editEventID = $(this).data('event-id');
+            var edit_event = document.getElementById("edit_event_id");
+            edit_event.value = editEventID;
+        });
+
+        $('#eventsTable').on('click', '.btn-delete', function () {
+            var delEventID = $(this).data('event-id');
+            var del_event = document.getElementById("delete_event_id");
+            del_event.value = delEventID;
+        });
+    });
+
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+      
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+      
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+      
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+    document.getElementById("defaultOpen").click();
+</script>
+<script>
+    //Admin CRUD
+    //Add Admin
+    $('#AddAdminForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/admin_add', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Admin added successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to add admin.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+
+     //Delete Admin
+     $('#DeleteAdminForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/admin_delete', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Admin deleted successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to delete admin.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+
+     //Edit Admin
+     $('#EditAdminForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/admin_edit', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Admin updated successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to update admin.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+</script>
+
+<script>
+    //User CRUD
+    //Delete User
+    $('#DeleteUserForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/admin/user_delete', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('User deleted successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to delete user.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+
+    //Edit User
+    $('#EditUserForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/admin/user_edit', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('User updated successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to update user.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+</script>
+
+<script>
+    //EVENTS CRUD
+    //ADD EVENT
+    $('#AddEventForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/event_add', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Event added successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to add event.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+
+     //EDIT EVENT
+     $('#EditEventForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/event_edit', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Event updated successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to update event.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+
+     //DELETE EVENT
+    $('#DeleteEventForm').submit(function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch('/event_delete', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Event deleted successfully.');
+                location.reload();
+            } else {
+                throw new Error('Failed to delete event.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     });
+</script>
+</html>

@@ -1,0 +1,1013 @@
+
+
+/* USER_PROFILE.HTML */
+
+body {
+  background-color: #FCF9F9; /* Replace with the color you desire */
+}
+/* feed option */
+.user-profile-wrapper {
+    display: flex;
+    justify-content: space-between; /* Add space between the elements */
+    max-width: 500px; /* Set a maximum width if needed */
+    margin: 0 auto;
+  }
+
+/* USER_PROFILE.HTML */
+
+.user-detail-box
+{
+  display: flex;
+  background-color: #ffffff; /* Replace with the color you desire */
+  flex-direction: column;
+  align-items: center;
+  width: 500;
+  padding: 20px;
+  border: 1px solid #ddd; /* Add border for styling */
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.details-below{
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 10px;
+  width: 450px;
+  border: 2px solid #ddd; /* Add border with a light gray color */
+  padding: 20px; /* Add some padding to the user details */
+  box-sizing: border-box;
+  background-color: #ffffff; /* Change to the color you desire */
+}
+
+.details-below p {
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+
+.details-below h{
+  font-size: 18px;
+  color: #929191;
+}
+
+.profile-picture img {
+  width: 300px; /* Adjust image width as needed */
+  height: 300px; /* Adjust image height as needed */
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-picture {
+  text-align: center;
+}
+
+.name-degree {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.name-degree h2{
+  font-weight: bold;
+
+}
+.details-below > div {
+  width: 60%; /* Adjust width as needed */
+}
+
+.age-gender {
+  display: flex;
+  justify-content: center;
+  margin-left: 80px;
+}
+
+.age-gender > div {
+  flex: 3;
+  gap: 2;
+}
+
+.age-gender h4 {
+  color: #929191;
+}
+
+.interests {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Allow interests to wrap to the next line if necessary */
+  margin-bottom: 50px;
+  margin-left: 85px;
+}
+
+.interests p {
+  display: inline-block;
+  font-size: 10px; 
+  font-weight: bold; 
+  border: 2px solid #6c757d; 
+  padding: 5px 10px;
+  margin: 5px;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 5px;
+} 
+
+
+.edit-button {
+  background-color: #CE6F6F;
+  font-size: 15px; 
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 5px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: auto; /* Center the button horizontally */
+}
+
+.edit-button:hover {
+  background-color: #981C24;
+  color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+/* USER_PROFILE.HTML */
+.user-profile-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.user-data {
+  margin-left: 100px; /* This will center the container */
+  max-width: 800px; /* Optional: Limit the maximum width for better readability */
+} 
+
+.user-data .books-citations-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  width: 100%;
+  margin-bottom: 20px;
+  margin: center;
+}
+
+.user-data .books-read {
+  width: 48%; /* Adjust width for two columns with a small gap */
+  background-color: #9E1A23; /* Different color for each box */
+  padding: 40px;
+  border-radius: 5px;
+  color: #fff; /* Text color for better visibility */
+  text-align: center; /* Center the text */
+}
+
+.user-data .books-read p {
+  margin: 0;
+  font-weight: bold; /* Make the text bold */
+}
+
+.user-data .featured-researches {
+  
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 600px;
+}
+
+.user-data .no_paper {
+  margin: 0; /* Remove default margin */
+  text-align: center;
+}
+
+.user-data .research-container {
+  border-radius: 5px; 
+  border: 1px solid #ddd;
+  margin-bottom: 20px; 
+  margin: center; 
+  margin-top: 0px;
+  background-color: #ffffff;
+}
+
+/* FEATURED RESEARCH */
+.user-data .featured-researches h4 {
+  background-color: #F8D8D8;
+  font-size: 15px; 
+  color: #7c7c7c;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+/* Most popular in the last week */
+.user-data .research-container h3 {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #F90000;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.user-data .research-container h5 {
+  margin: 20px;
+  margin-left: 15px;
+}
+
+.user-data .research-container p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+  font-size: 15px; 
+  color: #000000;
+}
+
+.user-data .tags {
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+}
+
+.user-data .tag {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-right: 5px;
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #1987D7;
+  border-radius: 3px;
+  border: 1px solid #1987D7; 
+}
+
+.user-data .tag.privacy {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #6c757d;
+  border-radius: 3px;
+  border: 1px solid #6c757d; 
+}
+
+.user-data .tag.date {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #6c757d;
+  border: 0px; 
+}
+
+.user-data .brief-description {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.user-data .authors {
+  display: flex;
+  align-items: center;
+}
+
+.user-data .author img { 
+  width: 30px; 
+  height: 30px; 
+  margin-right: 10px;
+}
+
+.user-data .author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: -10px;
+  margin-right: 10px;
+}
+
+.user-data .author p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+
+.user-data .Co-author-pic {
+  width: 40px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px;
+}
+
+
+
+.user-data .reads {
+  font-size: 14px;
+  margin-top: -20px;
+}
+
+.user-data .view-file-button {
+
+  padding: 8px 25px;
+  background-color: #ffffff;
+  color: #1987D7;
+  border: 1px solid #1987D7;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+.user-data .view-file-button:hover {
+  background-color: #1987D7;
+  color: #ffffff;
+}
+.user-data .reads-and-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px; /* Adjust as needed */
+  margin-bottom: 10px; /* Adjust as needed */
+  margin-left: 10px; /* Adjust as needed */
+}
+
+
+.user-data .request-file-button {
+  margin-top: 0px; /* Adjust the margin as needed */
+  margin-bottom: 20px;
+  margin-left: 450px;
+  padding: 8px 25px;
+  background-color: #ffffff;
+  color: #1987D7;
+  border: 1px solid #1987D7; 
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.user-data .request-file-button:hover {
+  background-color: #1987D7;
+  color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* USER_RESEARCHES.HTML */
+.user-researches-container {
+  margin-top: 30px;
+}
+.user-researches.no-paper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensure the container takes the full height of the parent */
+  flex-direction: column; /* Stack children vertically */
+}
+
+.user-researches.no-paper p {
+  text-align: center; /* Center the text horizontally */
+  margin: 0; /* Remove default margin */
+}
+.user-researches {
+  margin-left: 0px; /* This will center the container */  
+  max-width: 800px; /* Optional: Limit the maximum width for better readability */
+} 
+
+.user-researches .user-researches {
+  margin-top: 20px;
+  min-width: 50%;
+}
+
+.user-researches .research-container {
+  margin-bottom: 20px; 
+  margin: center; 
+  margin-top: 0px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.user-researches-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#researchContainer {
+  min-width: 800px; /* Adjust this value to your desired minimum width */
+  max-width: 800px;
+}
+.user-researches.no-paper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh; /* Adjust to fill the height of the viewport */
+}
+
+.user-researches.no-paper p {
+  margin: 0;
+  padding: 20px; /* Add padding for better visibility */
+  border: 1px solid #ddd; /* Optional: Add border for styling */
+  border-radius: 5px; /* Optional: Add border radius for styling */
+}
+/* FEATURED RESEARCH */
+.user-researches h4 {
+  background-color: #F8D8D8;
+  font-size: 15px; 
+  color: #7c7c7c;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+/* Most popular in the last week */
+.user-researches .research-container h3 {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #F90000;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.user-researches .research-container h5 {
+  margin: 20px;
+  margin-left: 15px;
+}
+
+.user-researches .research-container p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+  font-size: 15px; 
+  color: #000000;
+}
+
+.user-researches .abstract {
+  margin-right: 20px;
+}
+.user-researches .tags {
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.user-researches .tag {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-right: 5px;
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #1987D7;
+  border-radius: 3px;
+  border: 1px solid #1987D7; 
+}
+
+.user-researches .tag.privacy {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #6c757d;
+  border-radius: 3px;
+  border: 1px solid #6c757d; 
+}
+
+.user-researches .tag.date {
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #6c757d;
+  border: 0px; 
+}
+
+
+
+.user-researches .authors {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  margin-top: 15px;
+  margin-bottom: -10px;
+
+}
+
+.user-researches .author img { 
+  width: 30px; 
+  height: 30px; 
+}
+
+.user-researches .author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.user-researches .author p {
+  font-size: 14px;
+  color: #333;
+}
+
+.user-researches .Co-author-pic {
+  width: 40px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 5px;
+}
+
+.user-researches .reads {
+  font-size: 14px;
+  margin-top: -20px;
+}
+
+.user-researches .view-file-button {
+
+  padding: 8px 25px;
+  background-color: #ffffff;
+  color: #1987D7;
+  border: 1px solid #1987D7;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+.user-researches .view-file-button:hover {
+  background-color: #1987D7;
+  color: #ffffff;
+}
+.user-researches .reads-and-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px; /* Adjust as needed */
+  margin-bottom: 10px; /* Adjust as needed */
+  margin-left: 10px; /* Adjust as needed */
+}
+
+.reads-and-view .view-file-button {
+     margin-right: 100px;
+}
+
+.user-researches .request-file-button {
+  margin-top: 0px; /* Adjust the margin as needed */
+  margin-bottom: 40px;
+  margin-left: 630px;
+  padding: 8px 25px;
+  background-color: #ffffff;
+  color: #1987D7;
+  border: 1px solid #1987D7; 
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.user-researches .request-file-button:hover {
+  background-color: #1987D7;
+  color: #ffffff;
+}
+
+#briefDescription1 {
+  display: block; /* or none, based on your initial state */
+}
+
+#fullDescription1 {
+  display: none; /* or block, based on your initial state */
+}
+
+
+
+
+
+
+
+.filter-options h4,
+.nav-options h4 {
+  text-align: center;
+  background-color: #ffffff;
+  font-size: 15px; 
+  color: #515151;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #515151;
+  padding: 5px;
+}
+.nav-options {
+  position: absolute; 
+  width: 150px;
+  top: 200px; /* Adjust the top value as needed */
+  left: 300px; /* Adjust the left value as needed */
+  background-color: #ffffff;
+  border-radius:15px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  z-index: 1; /* Ensure it appears above other elements */
+}
+
+.filter-options .filter-option,
+.nav-options .nav-option{
+  text-align: center;
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 14px; /* Adjust the font size as needed */
+  font-weight: normal; /* Use 'bold' or 'normal' for font weight */
+  color: #040404;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.filter-options {
+  position: absolute; 
+  width: 150px;
+  top: 480px; /* Adjust the top value as needed */
+  left: 300px; /* Adjust the left value as needed */
+  background-color: #ffffff;
+  border-radius:15px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  z-index: 1; /* Ensure it appears above other elements */
+}
+
+/* Hover effect for nav-options */
+.nav-option:hover {
+  padding: 5px;
+  background-color: #ddd; /* Add the background color you want on hover */
+  cursor: pointer;
+}
+
+/* Hover effect for filter-options */
+.filter-option:hover {
+  padding: 5px;
+  background-color: #ddd; /* Add the background color you want on hover */
+  cursor: pointer;
+}
+
+/* Active (clicked) effect for nav-options */
+.nav-option.active {
+  padding: 5px;
+  background-color: #e4e4e4; /* Add the background color you want for the active option */
+}
+
+/* Active (clicked) effect for filter-options */
+.filter-option.active {
+  padding: 5px;
+  background-color: #e4e4e4; /* Add the background color you want for the active option */
+}
+
+
+
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.upload-container {
+  position: absolute;
+  text-align: center;
+  border: 1px solid #acacac; 
+  border-radius:30px;
+  padding: 20px;
+  background-color: #ffffff;
+  top: 310px;
+  right: 300px;
+  transform: translateY(-50%);
+}
+
+.upload-icon img {
+  width: 100px; /* Adjust the size as needed */
+  height: auto;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid #ccc; /* Border color */
+  padding: 5px;
+}
+
+.post-work {
+  background-color: white;
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 20px; /* Adjust border radius as needed */
+  margin-top: 20px;
+  padding: 10px 40px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.post-work:hover {
+  background-color: #a9a9a9;
+  color: #000000;
+}
+
+
+
+/* USER_PROFILE.HTML */
+
+body {
+  background-color: #FCF9F9; /* Replace with the color you desire */
+}
+
+.user-profile-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.user-details {
+  margin-left: 100px; /* This will center the container */
+  max-width: 800px; /* Optional: Limit the maximum width for better readability */
+}
+
+.user-detail-box {
+  display: flex;
+  background-color: #ffffff; /* Replace with the color you desire */
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  padding: 20px;
+  border: 1px solid #ddd; /* Add border for styling */
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.details-below {
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 10px;
+  width: 450px;
+  border: 2px solid #ddd; /* Add border with a light gray color */
+  padding: 20px; /* Add some padding to the user details */
+  box-sizing: border-box;
+  background-color: #ffffff; /* Change to the color you desire */
+}
+
+.details-below p {
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+
+.details-below h {
+  font-size: 18px;
+  color: #929191;
+}
+
+.profile-picture img {
+  width: 300px; /* Adjust image width as needed */
+  height: 300px; /* Adjust image height as needed */
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-picture {
+  text-align: center;
+}
+
+.name-degree {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.name-degree label {
+  display: block;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.name-degree input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.age-gender {
+  display: flex;
+  justify-content: center;
+  margin-left: 80px;
+}
+
+.age-gender > div {
+  flex: 3;
+  gap: 2;
+}
+
+.age-gender label {
+  display: block;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.age-gender input,
+.age-gender select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.edit-button {
+  background-color: #CE6F6F;
+  font-size: 15px;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 7px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: auto; /* Center the button horizontally */
+  margin-top: 5px;
+}
+
+.edit-button:hover {
+  background-color: #981C24;
+  color: #ffffff;
+}
+
+
+.checkbox-label {
+  font-size: 20px; /* Adjust the font size as needed */
+  margin-top: 15px;
+  margin-left: 5px; /* Adjust the margin-left as needed */
+  margin-bottom: 10px;
+  display: inline-block; /* Make labels inline-block to appear on the same line as the checkbox */
+  line-height: 25px; /* Set line height to match the checkbox height */
+  color: rgb(0, 0, 0);
+  vertical-align: middle; /* Align the label vertically in the middle */
+  text-align: left; /* Adjust the text alignment as needed */
+}
+
+.checkbox-input {
+  width: 20px; /* Adjust the checkbox size as needed */
+  height: 20px; /* Adjust the checkbox size as needed */
+  margin-right: 5px;
+  transition: background-color 1s; /* Add a smooth transition effect */
+  vertical-align: middle; /* Align the checkbox vertically in the middle */
+  text-align: center; /* Adjust the text alignment as needed */
+}
+
+/* Add hover styles */
+.checkbox-input:hover {
+  background-color: #FFBA07;
+}
+.centered {
+  text-align: center;
+  margin-top: 10px; /* Adjust the top margin as needed */
+  margin-bottom: 10px; /* Adjust the bottom margin as needed */
+}
+
+.centered-input {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px; /* Adjust the bottom margin as needed */
+}
+
+/* Updated CSS for the modal */
+.custom-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Hide the scrollbar */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+/* Updated CSS for the modal content */
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 500px;
+  width: 80%;
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  max-height: 70vh; /* Limit the height to 80% of the viewport height */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Display in a column layout */
+}
+
+
+/* Style for the close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-block;
+  padding: 5px 10px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  z-index: 2; /* Ensure the close button appears above the modal content */
+}
+
+.close-button:hover {
+  background-color: #aaa;
+}
+
+.close-button span {
+  margin-right: 5px;
+}
+
+/* Style for the "Add New Subject" form */
+.add-new-subject {
+  margin-top: 20px;
+}
+
+.add-new-subject label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.add-new-subject input[type="text"] {
+  width: 80%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.add-new-subject button {
+  padding: 9px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.add-new-subject button:hover {
+  background-color: #45a049;
+}
+

@@ -1,0 +1,21 @@
+<div class="modal" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-content" style="height: 340px;">
+        <div class="modal-header">
+            <h5 class="modal-title">Request Paper</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="overflow: hidden;">
+            <form id="requestForm" method="POST" action="{{ url_for('user_profile_blueprint.send_request', other_person_id=other_person_id, paper_id=paper_data.paper_id) }}">
+                <div class="form-group">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <label for="message">Message:</label>
+                    <textarea class="form-control" id="message" name="message" rows="3" style="resize: none;" required>I'm interested in this research - could you provide the full-text for it?
+- {{ session.get('user_name', '') }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+        </div>
+    </div>
+</div>

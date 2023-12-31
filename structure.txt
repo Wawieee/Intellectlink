@@ -1,0 +1,34 @@
+app/
+|-- __init__.py
+|-- models/
+|   |-- user_profile/
+|       |-- models.py
+|-- routes/
+|   |-- master_layout/
+|       |-- controller.py
+|   |-- user_profile/
+|       |-- controller.py
+|-- static/
+|   |-- master_layout/
+|       |-- scripts/
+|       |-- assets/
+|       |-- styles/
+|   |-- user_profile/
+|       |-- scripts/
+|       |-- assets/
+|       |-- styles/
+|-- templates/
+|   |-- master_layout/
+|       |-- nav.html
+|   |-- user_profile/
+|       |-- user_profile.html
+|       |-- other_profile.html
+|       |-- user_researches.html
+|       |-- other_researches.html
+|       |-- edit_profile.html
+|       |-- view_file.html
+app.py
+.gitinore
+config.py
+Pipfile
+Pipfile.lock

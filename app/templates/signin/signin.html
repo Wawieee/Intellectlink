@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='signin/styles/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-half">
+            <img src="{{ url_for('static', filename='signin/assets/logo2.png') }}" alt="logo2">
+            <div class="welcome-text">Welcome to Intellectlink</div>
+            <div class="google-button-container" onclick="window.location.href='/signin';">
+                <img src="{{ url_for('static', filename='signin/assets/logogoogle.png') }}" alt="Google Logo">
+                <div class="google-connect-text">Connect with My.IIT</div>
+            </div>
+            <button class="admin-login-button" onclick="window.location.href='/admin_signin';">
+                Log in as Admin
+            </button>
+        </div>
+        <div class="right-half">
+            <img src="{{ url_for('static', filename='signin/assets/signuo.jpg') }}" alt="Robot display">
+        </div>
+    </div>
+</body>
+</html>

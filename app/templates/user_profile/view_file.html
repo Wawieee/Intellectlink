@@ -1,0 +1,190 @@
+{% extends "master_layout/nav.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user_profile/styles/view_file.css') }}">
+<div class="rectangular-container">
+    {% if paper_data %}
+        <div class="research-container">
+            <div class="top">
+                <h5><strong>{{ paper_data.title }}</strong></h5>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="toggleDropdown()">&#8286;</button>
+                    <div class="dropdown-content" id="myDropdown">
+                        <a href="{{ url_for('user_profile_blueprint.edit_paper', person_id=person_id, paper_id=paper_data.paper_id) }}">Edit</a>
+                        <a href="{{ url_for('user_profile_blueprint.delete_paper', person_id=person_id, paper_id=paper_data.paper_id) }}" onclick="deletePaper()">Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tags">
+                <span class="tag">{{ paper_data.paper_type }}</span>
+                <span class="tag privacy">{{ paper_data.privacy }}</span>
+                <span class="tag date">{{ paper_data.pub_date }}</span>
+            </div>
+            <div class="authors">
+                {% if paper_data.authors_info %}
+                    <div class="author-list">
+                        {% for author_info in paper_data.authors_info.split(',') %}
+                            {% set author_parts = author_info.split('|') %}
+                            {% set photo_url = author_parts[0] %}
+                            {% set author_person_id = author_parts[2] %}
+                            {% set author_name = author_parts[1] %}
+                            
+                            <a class="author" onclick="openProfile('{{ author_person_id }}')">{{ author_name }}</a>
+                            {% if not loop.last %}
+                                <span class="author-separator">•</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <p class="reads">{{ paper_data.reads }} Reads</p>
+            <div class="button-container">
+                <a href="{{ url_for('user_profile_blueprint.download_paper', person_id=person_id, paper_id=paper_data.paper_id) }}" class="download-button" download>Download</a>
+                <a href="#" onclick="goBack()" class="back-button">Back</a>
+            </div>
+        </div>
+    {% else %}
+        <p>No data available for the specified paper.</p>
+    {% endif %}
+</div>
+
+<div class="abstract-container">
+    <h3>Abstract</h3>
+    {% if paper_data.abstract %}
+        <p class="abstract" id="abstract_{{ paper_data.paper_id }}">
+            {{ paper_data.abstract[:1000] }}{% if paper_data.abstract|length > 200 %}... <span class="read-more" onclick="toggleAbstract({{ paper_data.paper_id }})">Read More</span>{% endif %}
+        </p>
+        <p class="full-abstract" id="full_abstract_{{ paper_data.paper_id }}" style="display: none;">
+            {{ paper_data.abstract }} <span class="see-less" onclick="toggleAbstract({{ paper_data.paper_id }})">See Less</span>
+        </p>
+    {% else %}
+        <p>No abstract available.</p>
+    {% endif %}
+</div>
+<div class="pdf-container">
+    {% if paper_data.pdf_file %}
+        <iframe src="data:application/pdf;base64,{{ paper_data.pdf_file }}" frameborder="0"></iframe>
+    {% else %}
+        <p>No PDF file available.</p>
+    {% endif %}
+</div>
+
+<style>
+
+    /* New styles for author list */
+
+    .author-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .author-separator {
+        color: #333; /* Set color for separator bullet */
+        margin: 0 5px; /* Adjust spacing around the separator */
+    }
+
+    .dropbtn {
+        cursor: pointer;
+    }
+
+    .authors a {
+        cursor: pointer;
+    }
+
+    /* Center the iframe */
+    .pdf-container {
+        display: flex;
+        justify-content: center;
+        height: 100vh; /* Adjust the height as needed */
+        margin-bottom: 100px;
+        overflow: auto;
+    }
+
+    /* Adjust the size of the iframe */
+    iframe {
+        width: 80%; /* Adjust the width as needed */
+        height: 85vh; /* Adjust the height as needed */
+        border: 1px solid #ddd; /* Add a border for better visibility */
+    }
+    
+</style>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function openProfile(authorId) {
+        var currentUserId = '{{ session.get("person_id") }}';
+        var url = (currentUserId === authorId) ? '/user_profile/' + currentUserId : '/other_profile/' + authorId;
+        window.location.href = url;
+    }
+
+    function toggleAbstract(paperId) {
+        var abstract = document.getElementById('abstract_' + paperId);
+        var fullAbstract = document.getElementById('full_abstract_' + paperId);
+
+        if (abstract.style.display === 'none') {
+            abstract.style.display = 'block';
+            fullAbstract.style.display = 'none';
+        } else {
+            abstract.style.display = 'none';
+            fullAbstract.style.display = 'block';
+        }
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === "block") {
+                    openDropdown.style.display = "none";
+                }
+            }
+        }
+    }
+    function toggleDropdown() {
+        var dropdown = document.getElementById("myDropdown");
+        if (dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+        } else {
+            dropdown.style.display = "block";
+        }
+    }
+
+    function deletePaper() {
+        var paperId = document.querySelector('.dropbtn').getAttribute('data-paper-id');
+        var confirmDelete = confirm("Are you sure you want to delete this paper?");
+        
+        if (confirmDelete) {
+            // Make an AJAX request to delete the paper
+            $.ajax({
+                type: 'POST',
+                url: '/delete_paper',  // Update the route accordingly
+                data: { paper_id: paperId },
+                success: function(response) {
+                    // Redirect to the user_researches page after successful deletion
+                    window.location.href = '/user_profile/' + person_id + '/user_researches';
+                },
+            });
+        }
+    }
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/user_profile/123/delete_paper/456',
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+</script>
+
+
+{% endblock %}

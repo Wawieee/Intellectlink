@@ -1,0 +1,148 @@
+{% extends "master_layout/nav.html" %}
+
+{% block title %}research feed{% endblock %}
+{% block head %}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="{{ url_for('static', filename='research_feed/styles/styles.css') }}" rel='stylesheet'>
+    <script src="{{ url_for('static', filename='research_feed/scripts/scripts.js') }}"></script>
+    <script src="https://kit.fontawesome.com/aedc2538eb.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+<div class="user-nav">
+    <div class="user-profile-wrapper">
+        <div class="profile option active" onclick="navigateTo('/research-feed/{{ person_id }}')">Research Feed</div>
+        <div class="researches option" onclick="navigateTo('/events_feed/{{ person_id }}')">Upcoming Activities</div>
+    </div>
+</div>
+<style>
+.user-profile-wrapper .profile,
+.user-profile-wrapper .researches {
+    color: #F55761; /* Default color */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    font-weight: bold; /* Make the text bolder on hover */
+}
+.profile:hover, .researches:hover {
+    color: #F55761; /* Text color on hover */
+    cursor: pointer;
+    font-weight: bold; /* Make the text bolder */
+}
+
+.profile:active, .researches:active {
+    color: #981C24; /* Text color when clicked */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a shadow on click */
+}
+
+/* Active (clicked) effect for Profile */
+.profile.active {
+    color: #981C24; /* Text color for the active state */
+    font-weight: bold; /* Make the text bolder */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Shadow below the text for the active state */
+}
+</style>
+
+<script>
+    function navigateTo(url) {
+        window.location.href = url;
+    }
+</script>
+
+<div class="user-feed">
+    <div class="research-feed">
+        <section id="research-content" class="pb-5">
+            <div class="container">
+                <div class="row">
+                    {% set displayed_papers = [] %}
+                    {% for paper in research %}
+                        {% if paper.paper_id not in displayed_papers %}
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="card research-card" onclick="slideCard(this)" data-card-id="{{ paper.paper_id }}" person_id="{{ paper.person_id }}">
+                                    <div class="subject-tag">{{ paper.subjects }}</div>
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">{{ paper.title }}</h4>
+                                        <p class="card-text">{{ paper.subject }}</p>
+                                        <p class="card-text" id="displayCount"> 
+                                            <div class="author-list">
+                                                {% for author_info in research | selectattr('paper_id', 'eq', paper.paper_id) %}
+                                                    {% set author_parts = author_info.authors.split('|') %}
+                                                    {% set author_name = author_parts[0] %}
+                                                    {% set author_person_id = author_parts[1] %}
+                                                    
+                                                    <a class="author" onclick="openProfile('{{ author_person_id }}')">{{ author_name }}</a>
+                                                    {% if not loop.last %}
+                                                        <span class="author-separator">•</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </p>
+                                        
+                                        <p class="card-text"> {{ paper.pub_date }} <i class="fa fa-eye" aria-hidden="true"></i> <span class="click-counter" id='display_{{ paper.paper_id }}'> {{ paper.click_count }} </span> </p>
+                                        <p class="card-text">{{ paper.abstract }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% set _ = displayed_papers.append(paper.paper_id) %}
+                            {% if loop.index % 1 == 0 %}</div><div class="row">{% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item {{ 'disabled' if current_page == 1 else '' }}">
+            <a class="page-link" href="{{ url_for('research_blueprint.research_feed', person_id=person_id, page=current_page-1) }}" tabindex="-1">Previous</a>
+        </li>
+        
+        {% if total_pages <= 5 %}
+            {% for page_num in range(1, total_pages + 1) %}
+                <li class="page-item {{ 'active' if page_num == current_page else '' }}">
+                    <a class="page-link" href="{{ url_for('research_blueprint.research_feed', person_id=person_id, page=page_num) }}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            {% if current_page <= 3 %}
+                {% for page_num in range(1, 6) %}
+                    <li class="page-item {{ 'active' if page_num == current_page else '' }}">
+                        <a class="page-link" href="{{ url_for('research_blueprint.research_feed', person_id=person_id, page=page_num) }}">{{ page_num }}</a>
+                    </li>
+                {% endfor %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            {% elif current_page >= total_pages - 2 %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                {% for page_num in range(total_pages - 4, total_pages + 1) %}
+                    <li class="page-item {{ 'active' if page_num == current_page else '' }}">
+                        <a class="page-link" href="{{ url_for('research_blueprint.research_feed', person_id=person_id, page=page_num) }}">{{ page_num }}</a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                {% for page_num in range(current_page - 1, current_page + 2) %}
+                    <li class="page-item {{ 'active' if page_num == current_page else '' }}">
+                        <a class="page-link" href="{{ url_for('research_blueprint.research_feed', person_id=person_id, page=page_num) }}">{{ page_num }}</a>
+                    </li>
+                {% endfor %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            {% endif %}
+        {% endif %}
+
+        <li class="page-item {{ 'disabled' if current_page == total_pages else '' }}">
+            <a class="page-link" href="{{ url_for('research_blueprint.research_feed', person_id=person_id, page=current_page+1) }}">Next</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+{% endblock %}
