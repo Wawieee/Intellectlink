@@ -1,16 +1,19 @@
 IntellectLink(like ResearchGate)
 IntellectLink is a cutting-edge platform tailored for MSU-IIT communities, connecting students, researchers, and faculty in a seamless ecosystem of knowledge sharing. 
 
+
 Key Features:
 - Access a vast repository of university-generated research studies.
 - Seamlessly connect with fellow scholars and experts within your institution.
 - Stay updated with the latest academic trends and breakthroughs.
 - Effortlessly browse and filter studies by keywords, colleges, subject, author, and more.  
 
+
 THE POSSIBLE USERS:
 - IIT students
 - Faculty/Professors
 - and Alumni.
+
 
 THE USER CAN:
 - Log in and sign up.
@@ -28,7 +31,8 @@ THE USER CAN:
   - Search by author
   - Search by topics
 - Give feedback
- - give comments about the app and suggestions 
+  - give comments about the app and suggestions 
+
 
 THE ADMINISTRATOR CAN:
 - Log in and Sign up
