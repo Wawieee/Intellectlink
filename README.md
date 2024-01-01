@@ -1,5 +1,5 @@
 IntellectLink
--  is a cutting-edge platform tailored for MSU-IIT communities, connecting students, researchers, and faculty in a seamless ecosystem of knowledge sharing. 
+– is a cutting-edge platform tailored for MSU-IIT communities, connecting students, researchers, and faculty in a seamless ecosystem of knowledge sharing. 
 
 
 Key Features:
