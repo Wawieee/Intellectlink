@@ -32,3 +32,8 @@ app.py
 config.py
 Pipfile
 Pipfile.lock
+
+
+pipenv shell
+pipenv sync
+flask run
