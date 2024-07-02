@@ -34,9 +34,8 @@ Pipfile
 Pipfile.lock
 
 
-
-create a .env file with this content...
-"SECRET_KEY = yellow
+# create a .env file with this content...
+SECRET_KEY = yellow
 DB_NAME = dbintellectlink
 DB_USERNAME = root
 DB_PASSWORD = nawawi
@@ -55,10 +54,7 @@ FLASK_DEBUG = 1
 CLOUDINARY_CLOUD_NAME=dgsf02uow
 CLOUDINARY_API_KEY=497767253494448
 CLOUDINARY_API_SECRET=bh-tC9bnGLRDY3C8JubX-3r6bUU
-CLOUDINARY_FOLDER= intellectink"
-
-
-
+CLOUDINARY_FOLDER= intellectink
 
 
 
