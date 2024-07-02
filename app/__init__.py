@@ -52,9 +52,6 @@ def create_app():
                     api_key=CLOUDINARY_API_KEY,
                     api_secret=CLOUDINARY_API_SECRET
                     )
-
-
-
     
 
     from .routes.signin.signinroute import signinroute

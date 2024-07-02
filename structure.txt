@@ -34,6 +34,34 @@ Pipfile
 Pipfile.lock
 
 
+
+create a .env file with this content...
+"SECRET_KEY = yellow
+DB_NAME = dbintellectlink
+DB_USERNAME = root
+DB_PASSWORD = nawawi
+DB_HOST = localhost
+DB_PORT= 3306
+
+BOOTSTRAP_SERVE_LOCAL=False
+PIPENV_VENV_IN_PROJECT=1
+GOOGLE_CLIENT_ID= 796849845580-fmleoingh3p2mk81g4c5ql7cf73fqib3.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+GOOGLE_REDIRECT_URI=http://localhost:5000
+
+FLASK_APP = app.py
+FLASK_DEBUG = 1
+
+CLOUDINARY_CLOUD_NAME=dgsf02uow
+CLOUDINARY_API_KEY=497767253494448
+CLOUDINARY_API_SECRET=bh-tC9bnGLRDY3C8JubX-3r6bUU
+CLOUDINARY_FOLDER= intellectink"
+
+
+
+
+
+
 pipenv shell
 pipenv sync
 flask run
