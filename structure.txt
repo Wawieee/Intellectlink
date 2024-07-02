@@ -37,3 +37,10 @@ Pipfile.lock
 pipenv shell
 pipenv sync
 flask run
+
+git status
+git add .
+git commit -m "sample"
+git push
+
+localhost:5000
